@@ -1,0 +1,6 @@
+# code: language=ansible
+---
+# TODO: Use sudo once .macos can be run via root with no user interaction.
+- name: Run .macos dotfiles.
+  command: "{{ macos_script }}"
+  changed_when: false

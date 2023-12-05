@@ -1,0 +1,96 @@
+# code: language=ansible
+
+# ########## managed host preparation ########## #
+# copy ssh public key
+# ssh-copy-id -i ~/.ssh/id_rsa.pub user@host
+
+# ########## Usage ########## #
+# use argument '--ask-become-pass'or '-e "ansible_become_password=p@$$w0rd"' or use Ansibel vault,
+# because role fish requires permissions to change default shell.
+#
+# setup macos: ansible-playbook -i inventory.ini macos.yml --ask-become-pass
+# run single steps:
+# install & configure fish shell: ansible-playbook -i inventory.ini macos.yml --tags 'fish' --ask-become-pass
+# dotfiles:                       ansible-playbook -i inventory.ini macos.yml --tags 'dotfiles'
+#
+---
+- name: Configure host.
+  hosts: "{{ override_host | default('local') }}"
+
+  vars_files:
+    - default.config.yml
+  vars:
+    target_user:
+      username: "{{ ansible_user_id }}"
+      user_dir: "{{ ansible_user_dir }}"
+    backup_and_restore_paths_do_restore: true
+
+  pre_tasks:
+    - debug: var=target_user
+      tags: ['always']
+    # - debug: var=ansible_facts
+    #   tags: ['always']
+
+    - name: Include playbook configuration.
+      ansible.builtin.include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+
+  roles:
+    - role: backup-and-restore-paths
+      when: backup_and_restore_paths_do_restore
+      tags: ['backup-and-restore-paths']
+    - role: elliotweiser.osx-command-line-tools
+    - role: geerlingguy.mac.homebrew
+      tags: ['homebrew']
+    - role: geerlingguy.dotfiles
+      when: configure_dotfiles
+      tags: ['dotfiles']
+    - role: secret-files
+      when: configure_secret_files
+      tags: ['secretfiles']
+    - role: fish-shell
+      when: configure_fish
+      tags: ['fish']
+    - role: geerlingguy.mac.dock
+      when: configure_dock
+      tags: ['dock']
+    - role: geerlingguy.mac.mas
+      when: mas_installed_apps or mas_installed_app_ids
+      tags: ['mas']
+    - role: gantsign.visual-studio-code
+      users: "{{ vscode_user_config }}"
+      when: configure_vscode
+      tags: ['vscode']
+    # - role: vscode_extensions
+    #   when: configure_vscode_extensions
+    #   tags: ['vscode_extensions']
+
+  tasks:
+    - name: Import tasks sudoers.
+      ansible.builtin.import_tasks: tasks/sudoers.yml
+      when: configure_sudoers
+      tags: ['sudoers']
+
+    # - import_tasks: tasks/terminal.yml
+    #   when: configure_terminal
+    #   tags: ['terminal']
+
+    - name: Import tasks macos.
+      ansible.builtin.import_tasks: tasks/macos.yml
+      when: configure_macos
+      tags: ['macos']
+
+    - name: Import tasks extra-packages.
+      ansible.builtin.import_tasks: tasks/extra-packages.yml
+      tags: ['extra-packages']
+
+    - name: Run post-provision task files in a block.
+      tags: ['post']
+      block:
+        - name: Run configured post-provision ansible task files.
+          ansible.builtin.include_tasks: "{{ outer_item }}"
+          loop_control:
+            loop_var: outer_item
+          with_fileglob: "{{ post_provision_tasks | default(omit) }}"

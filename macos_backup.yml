@@ -1,0 +1,38 @@
+# code: language=ansible
+---
+- name: Configure host.
+  hosts: all
+
+  vars_files:
+    - default.config.yml
+  vars:
+    post_backup_tasks: []
+    backup_and_restore_paths_do_backup: true
+
+  pre_tasks:
+    # - name: Print all available facts
+    #   ansible.builtin.debug:
+    #     var: ansible_facts
+    #   tags: ['always']
+    # - debug: var=vars verbosity=2
+    #   tags: always
+    - name: Include playbook configuration.
+      ansible.builtin.include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+
+  roles:
+    - role: backup-and-restore-paths
+        # apply:
+        #   tags: ['backup-and-restore-paths']
+      tags: ['backup-and-restore-paths']
+
+  tasks:
+    - block:
+        - name: Run configured post-backup ansible task files.
+          include_tasks: "{{ outer_item }}"
+          loop_control:
+            loop_var: outer_item
+          with_fileglob: "{{ post_backup_tasks|default(omit) }}"
+      tags: ['post']
