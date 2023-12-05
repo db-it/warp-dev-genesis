@@ -1,0 +1,6 @@
+# code: language=ansible
+---
+- name: Restore path {{ item }}.
+  ansible.builtin.copy:
+    src: "{{ backup_and_restore_paths_backup_path }}{{ item | replace('~', '') }}"
+    dest: "{{ backup_and_restore_paths_restore_path }}"

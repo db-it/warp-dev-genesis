@@ -1,0 +1,21 @@
+# code: language=ansible
+---
+- name: Ensure backup path is set.
+  ansible.builtin.fail:
+    msg: Variable backup_paths_backup_path is not set.
+  when: backup_and_restore_paths_backup_path | length == 0
+
+- name: Include backup path files.
+  ansible.builtin.include_tasks: include-backup-path-files.yml
+  loop: "{{ backup_and_restore_paths_items }}"
+  loop_control:
+    loop_var: path_item
+  when: backup_and_restore_paths_do_backup
+
+- name: Include restore paths.
+  ansible.builtin.include_tasks: restore-path.yml
+  # args:
+  #   apply:
+  #     tags: ['backup_and_restore_paths_do_restore']
+  loop: "{{ backup_and_restore_paths_items }}"
+  when: backup_and_restore_paths_do_restore

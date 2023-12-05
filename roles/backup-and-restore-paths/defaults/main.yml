@@ -1,0 +1,9 @@
+# code: language=ansible
+---
+backup_and_restore_paths_do_backup: no
+backup_and_restore_paths_do_restore: no
+
+backup_and_restore_paths_backup_path: ""
+backup_and_restore_paths_restore_path: "{{ ansible_facts['user_dir'] }}"
+
+backup_and_restore_paths_items: []
