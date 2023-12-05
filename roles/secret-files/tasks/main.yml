@@ -1,0 +1,6 @@
+# code: language=ansible
+---
+- name: Link configured secret files.
+  ansible.builtin.include_tasks: link-file.yml
+  loop: "{{ secret_files_links }}"
+  # tags: ['secret_files']

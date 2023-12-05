@@ -1,0 +1,18 @@
+# code: language=ansible
+---
+- name: Stat link {{ item.dest }}.
+  ansible.builtin.stat:
+    path: "{{ item.dest }}"
+  register: stat_link
+  # tags: ['secret_files']
+
+- name: Create secret file link {{ item.dest }}.
+  ansible.builtin.file:
+    src: "{{ secret_files_path }}/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ target_user.username | default(ansible_user_id) }}"
+    mode: "{{ item.permissions | default(secret_files_link_permissions) }}"
+    force: "{{ item.force | default(false) }}"
+    state: link
+  # tags: ['secret_files']
+  when: not stat_link.stat.exists or item.force | default(false)

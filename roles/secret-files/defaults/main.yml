@@ -1,0 +1,12 @@
+# code: language=ansible
+---
+secret_files_path: ~/.secrets
+
+secret_files_links: []
+# Example:
+# - src: .netrc
+#   dest: ~/.netrc
+#   force: true
+#   permissions: 0644
+
+secret_files_link_permissions: '0600'
