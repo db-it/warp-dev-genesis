@@ -1,0 +1,30 @@
+# code: language=ansible
+---
+- name: Read previous shell from .provisioning/previous_shell
+  ansible.builtin.file:
+    path: ~/.provisioning/previous_shell
+  register: _previous_shell
+
+- debug: var=_previous_shell
+
+- name: Remove fisher including all plugins
+  ansible.builtin.shell:
+    cmd: "fisher list | fisher remove"
+    executable: "{{ fish_shell_path }}"
+
+- name: Remove fisher configs {{ item }}
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ fish_config_dir }}/{{ fisher_path_config_filename }}"
+    - "{{ fisher_path }}"
+
+- debug: msg="{{ lookup('file', _previous_shell.path) }}"
+
+- name: Restore previous shell {{ _previous_shell }} for user {{ target_user.username }}
+  ansible.builtin.user:
+    name: "{{ target_user.username }}"
+    shell: "{{ _previous_shell }}"
+  become: true
+  when: _previous_shell is succeeded

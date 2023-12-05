@@ -1,0 +1,28 @@
+# code: language=ansible
+---
+- name: Check if fisher is installed
+  ansible.builtin.stat:
+    path: "{{ fisher_function_file }}"
+  register: fisher_function
+
+- name: Check if fish_plugins file is present
+  ansible.builtin.stat:
+    path: "{{ fisher_fish_plugins_file }}"
+  register: fish_plugins_file
+
+- name: Fisher install status
+  ansible.builtin.debug: 
+    msg: "Fisher already installed."
+  when:
+    - fisher_function.stat.exists
+    - fish_plugins_file.stat.exists
+
+- name: Install fisher
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    executable: "{{ fish_shell_path }}"
+  when:
+    - not fisher_function.stat.exists
+    - not fish_plugins_file.stat.exists

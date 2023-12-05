@@ -1,0 +1,7 @@
+# code: language=ansible
+---
+- name: Add fish-shell repository into sources list
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+    state: present
+  become: true

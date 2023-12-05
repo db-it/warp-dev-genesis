@@ -1,0 +1,13 @@
+# code: language=ansible
+---
+- name: Install fisher plugin {{ plugin }}
+  ansible.builtin.shell:
+    cmd: "fisher install {{ plugin }}"
+    executable: "{{ fish_shell_path }}"
+  register: fish_plugin_installation
+  changed_when: true
+
+- name: Installation logs of {{ plugin }}
+  ansible.builtin.debug:
+    var: "{{ fish_plugin_installation.stdout_lines }}"
+  when: ansible_verbosity > 1

@@ -1,0 +1,29 @@
+# code: language=ansible
+---
+- name: Check that user exists
+  ansible.builtin.shell: "id -u {{ target_user.username }}"
+  ignore_errors: true
+  register: userexist
+
+- name: Get current shell of user
+  ansible.builtin.shell: echo $SHELL
+  register: _previous_shell
+
+- debug: var=_previous_shell
+
+- name: Ensure directory ~/.provisioning exist
+  ansible.builtin.file:
+    path: ~/.provisioning
+    state: directory
+
+- name: Save previous user shell in .provisioning/previous_shell
+  ansible.builtin.copy:
+    content: "{{ _previous_shell.stdout }}"
+    dest: ~/.provisioning/previous_shell
+
+- name: Set shell {{ fish_shell_path }} for user {{ target_user.username }}
+  ansible.builtin.user:
+    name: "{{ target_user.username }}"
+    shell: "{{ fish_shell_path }}"
+  become: true
+  when: userexist is succeeded

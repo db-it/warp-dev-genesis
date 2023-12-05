@@ -1,0 +1,34 @@
+# code: language=ansible
+---
+- name: Include specific tasks {{ ansible_os_family }}
+  ansible.builtin.include_tasks: fish-install-{{ ansible_os_family }}.yml
+
+- name: Ensure write permission for group on /usr/local/var/log
+  ansible.builtin.file:
+    path: /usr/local/var/log
+    mode: 0775
+  become: true
+
+- name: Ensure dependencies are present
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop: "{{ fish_role_dependency_packages }}"
+
+- name: Ensure fish shell is present
+  ansible.builtin.package:
+    name: fish
+    state: "{{ fish_state }}"
+
+- name: Include set user shell tasks
+  ansible.builtin.include_tasks: set-user-shell.yml
+  when:
+    - fish_set_default_shell
+    - fisher_state == "present"
+
+- name: Include fisher tasks
+  ansible.builtin.include_tasks: main-fisher.yml
+  when: fisher_state == "present"
+
+- name: Include fisher absent tasks
+  ansible.builtin.include_tasks: fisher-absent.yml
+  when: fisher_state == "absent"

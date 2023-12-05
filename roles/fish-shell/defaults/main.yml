@@ -1,0 +1,46 @@
+# code: language=ansible
+---
+# Variables that can be overwritten by the user
+
+fisher_plugins: []
+
+fish_feature_config:
+  - name: homebrew
+    state: present
+  - name: pyenv
+    state: present
+  - name: vscode
+    state: present
+  - name: nvm
+    state: present
+  - name: java_home
+    state: present
+    java_version: 11
+
+fish_state: present
+fisher_state: present
+
+fish_set_default_shell: true
+
+
+# TODO parameterize for different plattforms
+# mac
+# fish_shell_path: /usr/local/bin/fish
+# ubuntu
+# fish_shell_path: /usr/bin/fish
+fish_shell_path: "{% if ansible_facts['os_family'] == 'Darwin' %}/usr/local/bin/fish{% else %}/usr/bin/fish{% endif %}"
+fish_role_dependency_packages:
+  - curl # curl is required for fisher installation
+
+fish_config_path: "{{ target_user.user_dir }}/.config/fish"
+fish_config_dir: "{{ fish_config_path }}/conf.d"
+
+fisher_path: "{{ target_user.user_dir }}/.config/fisher"
+fisher_path_config_filename: fisher_path.fish
+
+fisher_function_file: "{{ target_user.user_dir }}/.config/fish/functions/fisher.fish"
+fisher_fish_plugins_file: "{{ target_user.user_dir }}/.config/fish/fish_plugins"
+
+target_user:
+  username: "{{ ansible_user_id }}"
+  user_dir: "{{ ansible_user_dir }}"
