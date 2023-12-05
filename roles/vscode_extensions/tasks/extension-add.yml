@@ -1,0 +1,5 @@
+---
+- name: Install vscode extension {{ item }}.
+  ansible.builtin.command:
+    cmd: code --install-extension {{ item }}{% if vscode_extensions_force_update %} --force{% endif %}
+  tags: ['vscode_extensions']

@@ -1,0 +1,10 @@
+---
+- name: Remove configured vscode extensions.
+  ansible.builtin.include_tasks: extension-remove.yml
+  loop: "{{ vscode_extensions_removed }}"
+  tags: ['vscode_extensions']
+
+- name: Ensure required vscode extensions exist.
+  ansible.builtin.include_tasks: extension-add.yml
+  loop: "{{ vscode_extensions_installed }}"
+  tags: ['vscode_extensions']

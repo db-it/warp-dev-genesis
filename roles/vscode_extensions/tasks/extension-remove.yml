@@ -1,0 +1,5 @@
+---
+- name: Uninstall vscode extension {{ item }}.
+  ansible.builtin.command:
+    cmd: code --uninstall-extension {{ item }}
+  tags: ['vscode_extensions']
