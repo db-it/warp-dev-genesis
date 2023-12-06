@@ -14,7 +14,7 @@ source venv/bin/activate.fish
 
 <br />
 
-## Prepare local host for provisioning
+## Prepare local and remote hosts for provisioning
 
 ### Ensure make is installed
 
@@ -29,13 +29,19 @@ Open Terminal app and run `make`. This prompts for installing Xcode.
 
 You can use this playbook to manage other Macs as well; you just need to make sure you can connect to it with SSH:
 
-  1. (On the Mac you want to connect to:) Go to System Preferences > Sharing.
+  1. (On the Mac you want to connect to:) Go to System Preferences > General > Sharing.
   2. Enable 'Remote Login'.
 
 You can also enable remote login on the command line:
 
 ```sh
 sudo systemsetup -setremotelogin on
+```
+
+### Add SSH public key to authorized_hosts
+
+```sh
+ssh-copy-id -i ~/.ssh/id_rsa user@remote-host
 ```
 
 ### Edit Ansible inventory
