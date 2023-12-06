@@ -1,37 +1,25 @@
 # code: language=ansible
 ---
-- debug:
-    msg: "path_item: {{ path_item }}"
-
-# - name: Get stats of {{ path_item }}
-#   ansible.builtin.stat:
-#     path: "{{ path_item }}"
-#   register: stat_path_item
-
-- name: Wildcard path
+- name: Find files to copy in wildcard path {{ path_item }}
   ansible.builtin.find:
     paths: "{{ path_item | dirname }}"
-    # paths: "~/Library/Services"
     patterns: "{{ path_item | basename }}"
-    # file_type: "{{ 'directory' if stat_path_item.stat.isdir else 'file' | default('file') }}"
     file_type: "any"
   register: files_to_copy
 
-- name: debug 3
+- name: Print found files for glob {{ path_item }}
   debug:
     msg: "{{ files_to_copy['files'] | map(attribute='path') }}"
 
-- debug:
-    msg: "> {{ path_item | dirname | replace('~', '')}}"
-
 # this is theoretically only required if path_item is a file (because of ansible.builtin.copy behaviour)
-- name: Create path in backup destination {{ path_item | dirname | replace('~', '')}}.
+- name: Create path in backup destination {{ path_item | dirname | replace('~', '') }}
+  # This: {{ path_item | dirname | replace('~', '') }} extracts /Library/Services out of ~/Library/Services/d12r*
   ansible.builtin.file:
-    path: "{{ backup_and_restore_paths_backup_path }}{{ path_item | dirname | replace('~', '')}}"
+    path: "{{ backup_and_restore_paths_backup_path }}{{ path_item | dirname | replace('~', '') }}"
     state: directory
 
 - name: Backup path {{ item }}.
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "{{ backup_and_restore_paths_backup_path }}{{ path_item | dirname | replace('~', '')}}"
+    dest: "{{ backup_and_restore_paths_backup_path }}{{ path_item | dirname | replace('~', '') }}"
   loop: "{{ files_to_copy['files'] | map(attribute='path') }}"
