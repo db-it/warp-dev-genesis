@@ -1,10 +1,10 @@
 # code: language=ansible
 ---
-- name: Include backup glob path.
+- name: Include backup glob path
   ansible.builtin.include_tasks: backup-glob-path.yml
   when: '"*" in path_item'
 
-- name: Include backup path.
+- name: Include backup path
   ansible.builtin.include_tasks: backup-path.yml
   # args:
   #   apply:

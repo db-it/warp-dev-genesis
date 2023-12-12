@@ -1,9 +1,24 @@
 # code: language=ansible
 ---
+# set these switches truthy in a playbook or somewhere else
 backup_and_restore_paths_do_backup: no
 backup_and_restore_paths_do_restore: no
 
+# define the backup target location in a playbook, via cli or somewhere else.
+# most reasonable would be to set this via Ansible argument: -e backup_and_restore_paths_backup_path=/Volumes/USBStick/backup_dir
 backup_and_restore_paths_backup_path: ""
-backup_and_restore_paths_restore_path: "{{ ansible_facts['user_dir'] }}"
+
+# Set the backup_and_restore_paths_restore_path only for testing.
+# This path must be in a location where non-privileged write access is possible, e.g. in the home directory.
+backup_and_restore_paths_restore_path: ""
 
 backup_and_restore_paths_items: []
+# Examples:
+# single file
+# - ~/config.ini
+# directory
+# - ~/.ssh
+# glob pattern
+# - ~/Library/Services/d12r*
+# privileged rights may be necessary, when restoring file outside the user home directory
+# - /etc/hosts

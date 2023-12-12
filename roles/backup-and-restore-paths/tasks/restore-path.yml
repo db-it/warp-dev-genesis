@@ -1,6 +1,43 @@
 # code: language=ansible
 ---
-- name: Restore path {{ item }}.
-  ansible.builtin.copy:
-    src: "{{ backup_and_restore_paths_backup_path }}{{ item | replace('~', '') }}"
-    dest: "{{ backup_and_restore_paths_restore_path }}"
+- name: Print default restore path
+  debug:
+    msg: "backup_and_restore_paths_restore_path={{ backup_and_restore_paths_restore_path }}"
+
+- name: When backup_and_restore_paths_restore_path is empty
+  block:
+    - name: Debug restore paths
+      debug:
+        msg: "Copy {{ backup_and_restore_paths_backup_path }}/{{ path_item }} to {{ path_item | dirname }}"
+    # this is only required if path_item is a file (because of ansible.builtin.copy behaviour)
+    - name: Create restore path {{ path_item | dirname }}
+      ansible.builtin.file:
+        path: "{{ path_item | dirname }}"
+        state: directory
+    - name: "Non-priviliged restore {{ path_item }}"
+      ansible.builtin.copy:
+        src: "{{ backup_and_restore_paths_backup_path }}/{{ path_item }}"
+        dest: "{{ path_item | dirname }}"
+      when: path_item is regex('^~')
+    - name: "Priviliged restore {{ path_item }}"
+      ansible.builtin.copy:
+        src: "{{ backup_and_restore_paths_backup_path }}/{{ path_item }}"
+        dest: "{{ path_item | dirname }}"
+      become: True
+      when: path_item is regex('^/')
+  when: backup_and_restore_paths_restore_path == ''
+
+- name: When backup_and_restore_paths_restore_path is not empty (this block is usually run for testing and restoring in a test restore path)
+  block:
+    - name: Debug restore paths
+      debug:
+        msg: "Copy {{ backup_and_restore_paths_backup_path }}/{{ path_item }} to {{ backup_and_restore_paths_restore_path }}/{{ path_item | dirname }}"
+    - name: Create restore path {{ path_item | dirname }}
+      ansible.builtin.file:
+        path: "{{ backup_and_restore_paths_restore_path }}/{{ path_item | dirname }}"
+        state: directory
+    - name: "Non-priviliged restore {{ path_item }}"
+      ansible.builtin.copy:
+        src: "{{ backup_and_restore_paths_backup_path }}/{{ path_item }}"
+        dest: "{{ backup_and_restore_paths_restore_path }}/{{ path_item | dirname }}"
+  when: backup_and_restore_paths_restore_path != ''

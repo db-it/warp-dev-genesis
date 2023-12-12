@@ -1,0 +1,12 @@
+# code: language=ansible
+---
+- name: Include restore-glob-path.yml
+  ansible.builtin.include_tasks: restore-glob-path.yml
+  when: '"*" in path_item'
+
+- name: Include restore-path.yml
+  ansible.builtin.include_tasks: restore-path.yml
+  # args:
+  #   apply:
+  #     tags: ['backup_and_restore_paths_do_backup']
+  when: '"*" not in path_item'

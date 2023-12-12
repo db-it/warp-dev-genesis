@@ -1,18 +1,16 @@
 # code: language=ansible
 ---
-# - name: Get stats of {{ path_item }}.
-#   ansible.builtin.stat:
-#     path: "{{ path_item }}"
-#   register: stat_path_item
+- name: Debug backup paths
+  debug:
+    msg: "Copy {{ path_item }} to {{ backup_and_restore_paths_backup_path }}/{{ path_item | dirname }}"
 
 # this is theoretically only required if path_item is a file (because of ansible.builtin.copy behaviour)
-- name: Create path in backup destination {{ path_item | dirname | replace('~', '')}}.
+- name: Create path in backup destination {{ path_item | dirname }}
   ansible.builtin.file:
-    path: "{{ backup_and_restore_paths_backup_path }}{{ path_item | dirname | replace('~', '')}}"
+    path: "{{ backup_and_restore_paths_backup_path }}/{{ path_item | dirname }}"
     state: directory
-  # when: stat_path_item.stat.isreg
 
-- name: Backup path {{ path_item }}.
+- name: Backup path {{ path_item }}
   ansible.builtin.copy:
     src: "{{ path_item }}"
-    dest: "{{ backup_and_restore_paths_backup_path }}{{ path_item | dirname | replace('~', '')}}"
+    dest: "{{ backup_and_restore_paths_backup_path }}/{{ path_item | dirname }}"

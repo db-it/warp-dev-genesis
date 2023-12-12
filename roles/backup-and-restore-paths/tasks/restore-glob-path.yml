@@ -1,0 +1,45 @@
+# code: language=ansible
+---
+- name: Find files to restore {{ backup_and_restore_paths_backup_path }}/{{ path_item }}
+  ansible.builtin.find:
+    paths: "{{ backup_and_restore_paths_backup_path }}/{{ path_item | dirname }}"
+    patterns: "{{ path_item | basename }}"
+    file_type: "any"
+  register: files_to_copy
+
+- name: Print found files for pattern {{ path_item }}
+  debug:
+    msg: "{{ files_to_copy['files'] | map(attribute='path') }}"
+
+- name: When backup_and_restore_paths_restore_path is empty
+  block:
+    # this is theoretically only required if path_item is a file (because of ansible.builtin.copy behaviour)
+    - name: Create restore path {{ path_item | dirname }}
+      # This: {{ path_item | dirname }} makes ~/Library/Services from ~/Library/Services/d12r*
+      ansible.builtin.file:
+        path: "{{ path_item | dirname }}"
+        state: directory
+
+    - name: Restore files in path {{ path_item }}
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ path_item | dirname }}"
+      loop: "{{ files_to_copy['files'] | map(attribute='path') }}"
+  when: backup_and_restore_paths_restore_path == ''
+
+
+- name: When backup_and_restore_paths_restore_path is not empty (this block is usually run for testing and restoring in a test restore path)
+  block:
+    # this is theoretically only required if path_item is a file (because of ansible.builtin.copy behaviour)
+    - name: Create restore path {{ path_item | dirname }}
+      # This: {{ path_item | dirname }} makes ~/Library/Services from ~/Library/Services/d12r*
+      ansible.builtin.file:
+        path: "{{ backup_and_restore_paths_restore_path }}/{{ path_item | dirname }}"
+        state: directory
+
+    - name: Restore files in path {{ path_item }}
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ backup_and_restore_paths_restore_path }}/{{ path_item | dirname }}"
+      loop: "{{ files_to_copy['files'] | map(attribute='path') }}"
+  when: backup_and_restore_paths_restore_path != ''
