@@ -5,13 +5,17 @@
 # ssh-copy-id -i ~/.ssh/id_rsa.pub user@host
 
 # ########## Usage ########## #
-# use argument '--ask-become-pass'or '-e "ansible_become_password=p@$$w0rd"' or use Ansibel vault,
-# because role fish requires permissions to change default shell.
+# use argument '--ask-become-pass'or '-e "ansible_become_password=p@$$w0rd"' or use Ansible vault,
+# because the following roles require priviliged access:
+# role: fish-shell - requires priviliged permissions to change default shell
+# role: backup-and-restore-paths - eventually requires priviliged permissions when copying files to root
 #
 # setup macos: ansible-playbook -i inventory.ini macos.yml --ask-become-pass
 # run single steps:
-# install & configure fish shell: ansible-playbook -i inventory.ini macos.yml --tags 'fish' --ask-become-pass
-# dotfiles:                       ansible-playbook -i inventory.ini macos.yml --tags 'dotfiles'
+# backup-and-restore-paths:       ansible-playbook -i inventory.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup --ask-become-pass
+# dotfiles:                       ansible-playbook -i inventory.ini macos.yml --tags dotfiles
+# secretfiles:                    ansible-playbook -i inventory.ini macos.yml --tags secretfiles
+# install & configure fish shell: ansible-playbook -i inventory.ini macos.yml --tags fish --ask-become-pass
 #
 ---
 - name: Configure host.
