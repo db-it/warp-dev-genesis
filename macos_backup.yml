@@ -1,7 +1,10 @@
+# ########## Usage ########## #
+# ansible-playbook -i inventory.ini macos_backup.yml -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup
+
 # code: language=ansible
 ---
 - name: Configure host.
-  hosts: all
+  hosts: "{{ override_host | default('local') }}"
 
   vars_files:
     - default.config.yml
