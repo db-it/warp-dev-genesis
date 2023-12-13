@@ -67,9 +67,6 @@
       users: "{{ vscode_user_config }}"
       when: configure_vscode
       tags: ['vscode']
-    # - role: vscode_extensions
-    #   when: configure_vscode_extensions
-    #   tags: ['vscode_extensions']
 
   tasks:
     - name: Import tasks sudoers.
