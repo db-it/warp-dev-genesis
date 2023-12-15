@@ -78,6 +78,11 @@
     #   when: configure_terminal
     #   tags: ['terminal']
 
+    - name: Import tasks fonts.
+      ansible.builtin.import_tasks: tasks/fonts.yml
+      when: configure_fonts
+      tags: ['fonts']
+
     - name: Import tasks macos.
       ansible.builtin.import_tasks: tasks/macos.yml
       when: configure_macos

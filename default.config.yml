@@ -8,6 +8,7 @@ configure_macos: yes
 configure_vscode: yes
 configure_secret_files: no
 configure_fish: true
+configure_fonts: true
 
 # Set to 'true' to configure the Dock via dockutil.
 configure_dock: false

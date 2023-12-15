@@ -1,0 +1,6 @@
+# code: language=ansible
+---
+- name: Copy fonts
+  ansible.builtin.copy:
+    src: resources/fonts/
+    dest: ~/Library/Fonts
