@@ -2,5 +2,5 @@
 ---
 - name: Copy fonts
   ansible.builtin.copy:
-    src: resources/fonts/
+    src: files/fonts/
     dest: ~/Library/Fonts
