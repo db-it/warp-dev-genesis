@@ -41,7 +41,7 @@
     # - debug: var=ansible_facts
     #   tags: ['always']
 
-    - name: Include playbook configuration.
+    - name: Include playbook configuration
       ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
@@ -58,7 +58,7 @@
       when: configure_dotfiles
       tags: ['dotfiles']
     - role: secret-files
-      when: configure_secret_files
+      when: configure_secretfiles
       tags: ['secretfiles']
     - role: fish-shell
       when: configure_fish
@@ -75,30 +75,26 @@
       tags: ['vscode']
 
   tasks:
-    - name: Import tasks sudoers.
+    - name: Import tasks sudoers
       ansible.builtin.import_tasks: tasks/sudoers.yml
       when: configure_sudoers
       tags: ['sudoers']
 
-    # - import_tasks: tasks/terminal.yml
-    #   when: configure_terminal
-    #   tags: ['terminal']
-
-    - name: Import tasks fonts.
+    - name: Import tasks fonts
       ansible.builtin.import_tasks: tasks/fonts.yml
       when: configure_fonts
       tags: ['fonts']
 
-    - name: Import tasks macos.
+    - name: Import tasks macos
       ansible.builtin.import_tasks: tasks/macos.yml
       when: configure_macos
       tags: ['macos']
 
-    - name: Import tasks extra-packages.
+    - name: Import tasks extra-packages
       ansible.builtin.import_tasks: tasks/extra-packages.yml
       tags: ['extra-packages']
 
-    - name: Run post-provision task files in a block.
+    - name: Run post-provision task files in a block
       tags: ['post']
       block:
         - name: Run configured post-provision ansible task files.

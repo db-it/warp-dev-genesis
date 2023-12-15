@@ -4,12 +4,11 @@ downloads: ~/.ansible-downloads/
 
 backup_and_restore_paths_do_restore: no
 configure_dotfiles: yes
-configure_terminal: yes
-configure_macos: yes
+configure_secretfiles: no
+configure_fish: yes
 configure_vscode: yes
-configure_secret_files: no
-configure_fish: true
-configure_fonts: true
+configure_fonts: yes
+configure_macos: yes
 
 # Set to 'true' to configure the Dock via dockutil.
 configure_dock: false
