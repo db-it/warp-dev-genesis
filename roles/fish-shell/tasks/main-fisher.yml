@@ -7,8 +7,7 @@
   ansible.builtin.template:
     src: "{{ fisher_path_config_filename }}.j2"
     dest: "{{ fish_config_dir }}/{{ fisher_path_config_filename }}"
-    # owner: "{{ target_user.username }}"
-    # mode: '0644'
+    mode: '0644'
 
 - name: Install fish plugins
   ansible.builtin.include_tasks: install-fisher-plugin.yml
