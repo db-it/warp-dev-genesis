@@ -13,9 +13,16 @@
 # setup macos: ansible-playbook -i inventory.ini macos.yml --ask-become-pass
 # run single steps:
 # backup-and-restore-paths:       ansible-playbook -i inventory.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup --ask-become-pass
+# homebrew:                       ansible-playbook -i inventory.ini macos.yml --tags homebrew
 # dotfiles:                       ansible-playbook -i inventory.ini macos.yml --tags dotfiles
 # secretfiles:                    ansible-playbook -i inventory.ini macos.yml --tags secretfiles
 # install & configure fish shell: ansible-playbook -i inventory.ini macos.yml --tags fish --ask-become-pass
+# dock:                           ansible-playbook -i inventory.ini macos.yml --tags dock
+# mas:                            ansible-playbook -i inventory.ini macos.yml --tags mas
+# vscode:                         ansible-playbook -i inventory.ini macos.yml --tags vscode
+# fonts:                          ansible-playbook -i inventory.ini macos.yml --tags fonts
+# macos:                          ansible-playbook -i inventory.ini macos.yml --tags macos
+# extra-packages:                 ansible-playbook -i inventory.ini macos.yml --tags extra-packages
 #
 ---
 - name: Configure host.
