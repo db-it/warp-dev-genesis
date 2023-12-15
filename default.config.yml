@@ -39,6 +39,9 @@ dotfiles_files:
   - .gitignore
   - .gitconfig
   - .macos
+  - .config/fish/conf.d/l.fish
+  - .config/fish/conf.d/ll.fish
+  - .config/fish/conf.d/lll.fish
 
 homebrew_installed_packages:
   # - ansible # Installed via Pip.
