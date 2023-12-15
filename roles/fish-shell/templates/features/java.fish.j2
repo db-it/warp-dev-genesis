@@ -1,0 +1,6 @@
+# Set default Java version
+set -gx JAVA_HOME (/usr/libexec/java_home -v {{ item.version | default(11) }})
+
+# disabled because this env var breaks some things.
+# Checkout: https://community.developer.atlassian.com/t/preparing-for-confluence-8-0-eap-coming-soon/59132/69?u=dom.b
+# set -gx MAVEN_COLOR true

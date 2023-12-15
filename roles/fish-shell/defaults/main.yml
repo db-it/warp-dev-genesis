@@ -5,17 +5,21 @@
 fisher_plugins: []
 
 fish_feature_config:
+  - name: fnm
+    state: present
+  - name: gcloudsdk
+    state: present
   - name: homebrew
+    state: present
+  - name: java
+    state: present
+    version: 11
+  - name: nvm
     state: present
   - name: pyenv
     state: present
   - name: vscode
     state: present
-  - name: nvm
-    state: present
-  - name: java_home
-    state: present
-    java_version: 11
 
 fish_state: present
 fisher_state: present
