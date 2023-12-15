@@ -27,7 +27,6 @@
     target_user:
       username: "{{ ansible_user_id }}"
       user_dir: "{{ ansible_user_dir }}"
-    backup_and_restore_paths_do_restore: true
 
   pre_tasks:
     - debug: var=target_user

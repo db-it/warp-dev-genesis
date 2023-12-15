@@ -2,6 +2,7 @@
 ---
 downloads: ~/.ansible-downloads/
 
+backup_and_restore_paths_do_restore: no
 configure_dotfiles: yes
 configure_terminal: yes
 configure_macos: yes
