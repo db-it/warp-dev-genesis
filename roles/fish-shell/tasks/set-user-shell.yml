@@ -20,6 +20,7 @@
   ansible.builtin.copy:
     content: "{{ _previous_shell.stdout }}"
     dest: ~/.provisioning/previous_shell
+    force: no
 
 - name: Set shell {{ fish_shell_path }} for user {{ target_user.username }}
   ansible.builtin.user:
