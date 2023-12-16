@@ -118,6 +118,11 @@
       when: configure_macos
       tags: ['macos']
 
+    # - name: Import tasks dock-spacer
+    #   ansible.builtin.import_tasks: tasks/dock-spacer.yml
+    #   when: configure_dock
+    #   tags: ['dockspacer']
+
     - name: Import tasks extra-packages
       ansible.builtin.import_tasks: tasks/extra-packages.yml
       tags: ['extra-packages']

@@ -22,6 +22,10 @@ dockitems_persist: []
 #   path: "/Applications/Sublime Text.app/"
 #   pos: 5
 
+# Add spacer after these Dock items
+dockitems_spacer: []
+# - Mail
+
 configure_sudoers: false
 sudoers_custom_config: ''
 # Example:
@@ -97,7 +101,9 @@ homebrew_cask_apps:
   - viscosity
   
   ### dev ##
-  - jetbrains-toolbox
+  # - jetbrains-toolbox
+  - intellij-idea
+  - pycharm-ce
   - docker
   - google-cloud-sdk
   - temurin11
