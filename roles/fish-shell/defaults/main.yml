@@ -24,15 +24,7 @@ fish_feature_config:
 fish_state: present
 fisher_state: present
 
-fish_set_default_shell: true
-
-
-# TODO parameterize for different plattforms
-# mac
-# fish_shell_path: /usr/local/bin/fish
-# ubuntu
-# fish_shell_path: /usr/bin/fish
-fish_shell_path: "{% if ansible_facts['os_family'] == 'Darwin' %}/usr/local/bin/fish{% else %}/usr/bin/fish{% endif %}"
+fish_set_default_shell: false
 fish_role_dependency_packages:
   - curl # curl is required for fisher installation
 
