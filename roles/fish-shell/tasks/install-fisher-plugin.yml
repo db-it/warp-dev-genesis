@@ -3,7 +3,7 @@
 - name: Install fisher plugin {{ plugin }}
   ansible.builtin.shell:
     cmd: "fisher install {{ plugin }}"
-    executable: "{{ fish_shell_path }}"
+    executable: "{{ fish_shell_path | trim }}"
   register: fish_plugin_installation
   changed_when: true
 

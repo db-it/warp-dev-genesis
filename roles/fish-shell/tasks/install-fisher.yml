@@ -22,7 +22,7 @@
     cmd: |
       set -o pipefail
       curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-    executable: "{{ fish_shell_path }}"
+    executable: "{{ fish_shell_path | trim }}"
   when:
     - not fisher_function.stat.exists
     - not fish_plugins_file.stat.exists
