@@ -11,6 +11,9 @@
   vars:
     post_backup_tasks: []
     backup_and_restore_paths_do_backup: true
+    # for development & testing
+    #backup_and_restore_paths_restore_path: ~/ansible_restore
+    #backup_and_restore_paths_backup_path: ~/ansible_testing
 
   pre_tasks:
     # - name: Print all available facts
