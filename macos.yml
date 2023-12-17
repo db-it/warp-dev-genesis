@@ -23,6 +23,8 @@
 # fonts:                          ansible-playbook -i inventory.ini macos.yml --tags fonts
 # macos:                          ansible-playbook -i inventory.ini macos.yml --tags macos
 # extra-packages:                 ansible-playbook -i inventory.ini macos.yml --tags extra-packages
+# POST TASKS:
+# set fish as default shell:      ansible-playbook -i inventory.ini macos.yml --tags fish --ask-become-pass -e fish_set_default_shell=true
 #
 ---
 - name: Configure host.
@@ -38,8 +40,9 @@
   pre_tasks:
     - debug: var=target_user
       tags: ['always']
-    # - debug: var=ansible_facts
-    #   tags: ['always']
+    - debug: var=ansible_facts
+      tags: ['always']
+      when: ansible_verbosity > 1
 
     - name: Include playbook configuration
       ansible.builtin.include_vars: "{{ item }}"
