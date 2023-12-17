@@ -23,7 +23,7 @@
   ansible.builtin.include_tasks: set-user-shell.yml
   when:
     - fish_set_default_shell
-    - fisher_state == "present"
+    - fish_state == "present"
 
 - name: Include fish-feature tasks
   ansible.builtin.include_tasks: fish-feature.yml
