@@ -14,9 +14,9 @@
 # run single steps:
 # backup-and-restore-paths:       ansible-playbook -i inventory.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup --ask-become-pass
 # homebrew:                       ansible-playbook -i inventory.ini macos.yml --tags homebrew
+# install & configure fish shell: ansible-playbook -i inventory.ini macos.yml --tags fish --ask-become-pass
 # dotfiles:                       ansible-playbook -i inventory.ini macos.yml --tags dotfiles
 # secretfiles:                    ansible-playbook -i inventory.ini macos.yml --tags secretfiles
-# install & configure fish shell: ansible-playbook -i inventory.ini macos.yml --tags fish --ask-become-pass
 # dock:                           ansible-playbook -i inventory.ini macos.yml --tags dock
 # mas:                            ansible-playbook -i inventory.ini macos.yml --tags mas
 # vscode:                         ansible-playbook -i inventory.ini macos.yml --tags vscode
@@ -54,15 +54,15 @@
     - role: elliotweiser.osx-command-line-tools
     - role: geerlingguy.mac.homebrew
       tags: ['homebrew']
+    - role: fish-shell
+      when: configure_fish
+      tags: ['fish']
     - role: geerlingguy.dotfiles
       when: configure_dotfiles
       tags: ['dotfiles']
     - role: secret-files
       when: configure_secretfiles
       tags: ['secretfiles']
-    - role: fish-shell
-      when: configure_fish
-      tags: ['fish']
     - role: geerlingguy.mac.dock
       when: configure_dock
       tags: ['dock']
