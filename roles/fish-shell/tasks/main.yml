@@ -3,11 +3,12 @@
 - name: Include specific tasks {{ ansible_os_family }}
   ansible.builtin.include_tasks: fish-install-{{ ansible_os_family }}.yml
 
-- name: Ensure write permission for group on /usr/local/var/log
-  ansible.builtin.file:
-    path: /usr/local/var/log
-    mode: 0775
-  become: true
+# temporary disabled, because this path doesn't exist on Apple Silicon Macs
+# - name: Ensure write permission for group on /usr/local/var/log
+#   ansible.builtin.file:
+#     path: /usr/local/var/log
+#     mode: 0775
+#   become: true
 
 - name: Ensure dependencies are present
   ansible.builtin.package:
