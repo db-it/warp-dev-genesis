@@ -26,6 +26,16 @@
     - fish_set_default_shell
     - fish_state == "present"
 
+- name: Ensure fish directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - ~/.config/fish/conf.d
+    - ~/.config/fish/functions
+    - ~/.config/fish/completions
+    - ~/.config/fish/themes
+
 - name: Include fish-feature tasks
   ansible.builtin.include_tasks: fish-feature.yml
   loop: "{{ fish_feature_config }}"
