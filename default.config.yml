@@ -59,15 +59,6 @@ homebrew_installed_packages:
   - git
   - git-lfs
 
-homebrew_taps:
-  - homebrew/core
-  - homebrew/cask
-  # are these needed? Check this in future.
-  # - homebrew/cask-fonts
-  # - homebrew/cask-versions
-  - adoptopenjdk/openjdk
-  - atlassian/tap
-
 homebrew_cask_appdir: /Applications
 homebrew_cask_apps:
   ### common ###
