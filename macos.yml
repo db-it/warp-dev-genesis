@@ -50,6 +50,14 @@
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
       tags: ['always']
+    - name: Run post-provision task files in a block
+      tags: ['pre']
+      block:
+      - name: Run configured pre-provision ansible task files
+        ansible.builtin.include_tasks: "{{ outer_item }}"
+        loop_control:
+          loop_var: outer_item
+        with_fileglob: "{{ pre_provision_tasks | default(omit) }}"
 
   roles:
     - role: backup-and-restore-paths

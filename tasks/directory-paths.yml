@@ -1,0 +1,10 @@
+# code: language=ansible
+---
+
+- name: Ensure that paths exist
+  ansible.builtin.file:
+    path: "{{ path_item }}"
+    state: directory
+  loop: "{{ directory_paths }}"
+  loop_control:
+    loop_var: path_item

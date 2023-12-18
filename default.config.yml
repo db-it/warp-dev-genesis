@@ -143,5 +143,8 @@ pip_packages: []
 #   state: present # present/absent/latest, default: present
 #   version: "0.16.3" # default: N/A
 
+# Glob pattern to ansible task files to run before all other tasks.
+pre_provision_tasks: []
+
 # Glob pattern to ansible task files to run after all other tasks are finished.
 post_provision_tasks: []
