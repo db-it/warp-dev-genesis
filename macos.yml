@@ -36,7 +36,6 @@
     target_user:
       username: "{{ ansible_user_id }}"
       user_dir: "{{ ansible_user_dir }}"
-    backup_and_restore_paths_do_restore: yes
 
   pre_tasks:
     - debug: var=target_user
@@ -61,6 +60,7 @@
 
   roles:
     - role: backup-and-restore-paths
+      backup_and_restore_paths_do_restore: yes
       when: backup_and_restore_paths_do_restore
       tags: ['backup-and-restore-paths']
     - role: elliotweiser.osx-command-line-tools
