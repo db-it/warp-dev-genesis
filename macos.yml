@@ -40,9 +40,12 @@
   pre_tasks:
     - debug: var=target_user
       tags: ['always']
-    - debug: var=ansible_facts
-      tags: ['always']
-      when: ansible_verbosity > 1
+    - name: Print all playbook vars
+      ansible.builtin.debug: var=vars
+      tags: ['never', 'debug']
+    - name: Print ansible facts
+      ansible.builtin.debug: var=ansible_facts
+      tags: ['never', 'facts']
 
     - name: Include playbook configuration
       ansible.builtin.include_vars: "{{ item }}"
