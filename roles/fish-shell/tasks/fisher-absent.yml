@@ -1,8 +1,8 @@
 # code: language=ansible
 ---
-- name: Read previous shell from .provisioning/previous_shell
+- name: Read previous shell from .provision/previous_shell
   ansible.builtin.file:
-    path: ~/.provisioning/previous_shell
+    path: ~/.provision/previous_shell
   register: _previous_shell
 
 - debug: var=_previous_shell

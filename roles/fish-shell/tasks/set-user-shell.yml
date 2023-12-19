@@ -11,15 +11,15 @@
 
 - debug: var=_previous_shell
 
-- name: Ensure directory ~/.provisioning exist
+- name: Ensure directory ~/.provision exist
   ansible.builtin.file:
-    path: ~/.provisioning
+    path: ~/.provision
     state: directory
 
-- name: Save previous user shell in .provisioning/previous_shell
+- name: Save previous user shell in .provision/previous_shell
   ansible.builtin.copy:
     content: "{{ _previous_shell.stdout }}"
-    dest: ~/.provisioning/previous_shell
+    dest: ~/.provision/previous_shell
     force: no
 
 - name: Set shell {{ fish_shell_path }} for user {{ target_user.username }}
