@@ -95,6 +95,14 @@
       tags: ['vscode']
 
   tasks:
+    - name: Import tasks rosetta2
+      ansible.builtin.import_tasks: tasks/rosetta2.yml
+      when:
+        - install_rosetta2
+        - ansible_facts['os_family'] == 'Darwin'
+        - ansible_facts['architecture'] == 'arm64'
+      tags: ['rosetta2']
+
     - name: Import tasks sudoers
       ansible.builtin.import_tasks: tasks/sudoers.yml
       when: configure_sudoers

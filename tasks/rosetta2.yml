@@ -1,0 +1,5 @@
+# code: language=ansible
+---
+
+- name: Ensure rosetta2 is installed
+  ansible.builtin.command: /usr/sbin/softwareupdate --install-rosetta --agree-to-license
