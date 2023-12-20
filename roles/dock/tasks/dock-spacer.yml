@@ -1,0 +1,9 @@
+# code: language=ansible
+---
+# spacer types:
+# normal:     --type spacer
+# small:      --type small-spacer
+# large flex: --type flex-spacer
+- name: Add Dock spacer before item {{ item }}
+  ansible.builtin.command: "{{ dockutil_bin }} --add '' --type spacer --section apps --after '{{ item }}' --no-restart"
+  tags: ['dock']

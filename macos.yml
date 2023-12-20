@@ -83,7 +83,7 @@
     - role: secret-files
       when: configure_secretfiles
       tags: ['secretfiles']
-    - role: geerlingguy.mac.dock
+    - role: dock
       when: configure_dock
       tags: ['dock']
     - role: geerlingguy.mac.mas
@@ -117,11 +117,6 @@
       ansible.builtin.import_tasks: tasks/macos.yml
       when: configure_macos
       tags: ['macos']
-
-    # - name: Import tasks dock-spacer
-    #   ansible.builtin.import_tasks: tasks/dock-spacer.yml
-    #   when: configure_dock
-    #   tags: ['dockspacer']
 
     - name: Import tasks extra-packages
       ansible.builtin.import_tasks: tasks/extra-packages.yml
