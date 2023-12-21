@@ -65,7 +65,7 @@
         - "{{ playbook_dir }}/config.yml"
       tags: ['always']
 
-    - name: Run post-provision task files in a block
+    - name: Run pre-provision task files in a block
       tags: ['pre']
       block:
       - name: Run configured pre-provision ansible task files
