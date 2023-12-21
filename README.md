@@ -73,3 +73,12 @@ If you need to supply an SSH password (if you don't use SSH keys), make sure to 
 * https://github.com/mas-cli/mas (Mac App Store CLI)
 * https://github.com/mathiasbynens/dotfiles
 * https://www.talkingquickly.co.uk/2021/01/macos-setup-with-ansible/
+* https://github.com/wayofdev/ansible-role-dock
+
+
+## Troubleshooting
+
+### Homebrew Cask installs that require a password fail (Play is stuck at installing cask)
+
+* Ansible Github #29403: [Cask installs that require a password fail](https://github.com/ansible/ansible/issues/29403)
+* Possible solution: [geerlingguy/ansible-role-homebrew#73](https://github.com/geerlingguy/ansible-role-homebrew/issues/73#issuecomment-392296635)
