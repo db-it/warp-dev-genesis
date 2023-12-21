@@ -12,15 +12,27 @@ configure_macos: yes
 
 # Set to 'true' to configure the Dock via dockutil.
 configure_dock: false
+
+# Clear all Dock items first
+dockitems_clear_all: true
+
+# Path to the dockutil bin file. Default is "dockutil".
+# dockutil_bin: /usr/local/bin/dockutil
+
 dockitems_remove: []
 # - Launchpad
 # - TV
 # - Podcasts
 # - 'App Store'
+
 dockitems_persist: []
 # - name: "Sublime Text"
 #   path: "/Applications/Sublime Text.app/"
 #   pos: 5
+
+# Add spacer after these Dock items
+dockitems_spacer: []
+# - Mail
 
 configure_sudoers: false
 sudoers_custom_config: ''
@@ -97,7 +109,9 @@ homebrew_cask_apps:
   - viscosity
   
   ### dev ##
-  - jetbrains-toolbox
+  # - jetbrains-toolbox
+  - intellij-idea
+  - pycharm-ce
   - docker
   - google-cloud-sdk
   - temurin11

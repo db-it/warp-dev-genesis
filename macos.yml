@@ -83,7 +83,7 @@
     - role: secret-files
       when: configure_secretfiles
       tags: ['secretfiles']
-    - role: geerlingguy.mac.dock
+    - role: dock
       when: configure_dock
       tags: ['dock']
     - role: geerlingguy.mac.mas

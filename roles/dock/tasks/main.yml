@@ -1,0 +1,45 @@
+# code: language=ansible
+---
+# See: https://github.com/kcrawford/dockutil/issues/127
+- name: Install dockutil
+  community.general.homebrew_cask:
+    name: "{{ dockutil_homebrew_cask }}"
+    state: present
+    sudo_password: "{{ ansible_become_password | default(omit) }}"
+  notify:
+    - Clear homebrew cache
+  when: dockutil_install
+  tags: ['dock']
+
+- name: Clear all Dock items
+  ansible.builtin.command: "{{ dockutil_bin }} --remove all --no-restart"
+  when: dockitems_clear_all
+  tags: ['dock']
+
+- name: Remove configured Dock items
+  ansible.builtin.include_tasks: dock-remove.yml
+  when: not dockitems_clear_all
+  loop: "{{ dockitems_remove }}"
+  tags: ['dock']
+
+- name: Ensure required dock items exist
+  ansible.builtin.include_tasks: dock-add.yml
+  loop: "{{ dockitems_persist }}"
+  tags: ['dock']
+
+- name: Ensure dock items are in correct position
+  ansible.builtin.include_tasks: dock-position.yml
+  when:
+    - item.pos is defined
+    - item.pos > 0
+  loop: "{{ dockitems_persist }}"
+  tags: ['dock']
+
+- name: Ensure required dock spacer exist
+  ansible.builtin.include_tasks: dock-spacer.yml
+  loop: "{{ dockitems_spacer }}"
+  tags: ['dock']
+
+- name: Restart Dock
+  ansible.builtin.command: killall Dock
+  tags: ['dock']
