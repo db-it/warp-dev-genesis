@@ -1,0 +1,15 @@
+# code: language=ansible
+---
+- name: Create symlink without spaces on local machine {{ link.dest }}
+  local_action:
+    module: ansible.builtin.file
+    src: "{{ link.src }}"
+    dest: "{{ link.dest }}"
+    state: link
+
+- name: Create symlink without spaces on remote machine {{ link.dest }}
+  ansible.builtin.file:
+    src: "{{ link.src }}"
+    dest: "{{ link.dest }}"
+    state: link
+  when: ansible_connection == 'ssh'

@@ -41,6 +41,7 @@
   vars_files:
     - default.config.yml
   vars:
+    configure_syncfiles: yes
     target_user:
       username: "{{ ansible_user_id }}"
       user_dir: "{{ ansible_user_dir }}"
@@ -87,6 +88,9 @@
     - role: secret-files
       when: configure_secretfiles
       tags: ['secretfiles']
+    - role: sync-files
+      when: configure_syncfiles
+      tags: ['syncfiles']
     - role: dock
       when: configure_dock
       tags: ['dock']
