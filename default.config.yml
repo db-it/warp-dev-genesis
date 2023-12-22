@@ -3,6 +3,7 @@
 downloads: ~/.ansible-downloads/
 
 backup_and_restore_paths_do_restore: no
+do_sync_files: no
 configure_dotfiles: yes
 configure_secretfiles: no
 configure_fish: yes
