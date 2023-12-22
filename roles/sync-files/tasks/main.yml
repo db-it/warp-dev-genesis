@@ -1,0 +1,22 @@
+# code: language=ansible
+---
+# NOTE: ansible.posix.synchronize actually can't handle paths with spaces in them
+# GitHub Issue: https://github.com/ansible-collections/ansible.posix/issues/305
+# Workaround because synchronize actually can't handle spaces in path: Create symlinks without spaces
+- name: Include tasks symlink-fixes
+  ansible.builtin.include_tasks: symlink-fixes.yml
+  loop: "{{ syncfiles_symlink_fixes }}"
+  loop_control:
+    loop_var: link
+
+- name: Include tasks sync-path-files
+  ansible.builtin.include_tasks: sync-path-files.yml
+  loop: "{{ syncfiles }}"
+  loop_control:
+    loop_var: path_item
+
+- name: Include tasks copy-path-sudo
+  ansible.builtin.include_tasks: copy-path-sudo.yml
+  loop: "{{ syncfiles_sudo }}"
+  loop_control:
+    loop_var: path_item

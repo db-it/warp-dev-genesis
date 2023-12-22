@@ -1,0 +1,31 @@
+# code: language=ansible
+---
+- name: Is path a directory
+  local_action:
+    module: ansible.builtin.stat
+    path: "{{ path_item }}"
+  register: copy_path
+
+- name: Ensure path exists {{ path_item | dirname }}
+  ansible.builtin.file:
+    path: "{{ path_item | dirname }}"
+    state: directory
+  become: True
+
+- name: Copy file {{ path_item }}
+  ansible.builtin.copy:
+    src: "{{ path_item }}"
+    dest: "{{ path_item }}"
+  become: True
+  when:
+    - copy_path.stat.isreg
+    - path_item is regex('^/')
+
+- name: Copy directory {{ path_item }}
+  ansible.builtin.copy:
+    src: "{{ path_item }}"
+    dest: "{{ path_item | dirname }}"
+  become: True
+  when:
+    - copy_path.stat.isdir
+    - path_item is regex('^/')

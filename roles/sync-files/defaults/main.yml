@@ -1,0 +1,46 @@
+# code: language=ansible
+---
+
+# NOTE!
+# This role uses ansible.posix.synchronize to copy data to a remote target.
+# Because of synchronize actually can't handle paths with spaces in them, we have to tackle this.
+# So we create a symlink without spaces to the path that contains spaces on the local and the remote host.
+# You have to add a symlink fix for every path that contains spaces.
+syncfiles_symlink_fixes: []
+# Example:
+# If you want to sync this path ~/Library/Application Support/Firefox,
+# you have to add this symlink fix:
+# - src: ~/Library/Application Support
+#   dest: ~/Library/ApplicationSupport
+
+
+# Define paths to files and directories to be synced to a remote host.
+#
+# NOTE: Syncing paths that require sudo permissions are not supported!
+# for e.g. /etc/hosts
+# use 'syncfiles_sudo' for those paths!
+syncfiles: []
+# Examples:
+# single file:
+# - ~/config.ini
+#
+# directory:
+# - ~/.ssh
+# 
+# Note the notation without spaces, because of the symlink fix.
+# Normally it would be "Application Support":
+# - ~/Library/ApplicationSupport/Firefox
+#
+# Glob pattern. All files starting with "foo":
+# - ~/Library/Services/foo*
+
+
+# Define paths that require sudo permissions on remote host.
+# Do not use this for a large amount of files as this is a slow method of transferring files.
+syncfiles_sudo: []
+# Example:
+# single file:
+# - /etc/hosts
+#
+# directory:
+# - /etc/paths.d

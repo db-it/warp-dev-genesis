@@ -1,0 +1,9 @@
+# code: language=ansible
+---
+- name: Include tasks sync-glob-path
+  ansible.builtin.include_tasks: sync-glob-path.yml
+  when: '"*" in path_item'
+
+- name: Include tasks sync-path
+  ansible.builtin.include_tasks: sync-path.yml
+  when: '"*" not in path_item'

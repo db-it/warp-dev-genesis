@@ -1,0 +1,19 @@
+# code: language=ansible
+---
+- name: Find files to sync {{ path_item }}
+  local_action:
+    module: ansible.builtin.find
+    paths: "{{ path_item | dirname }}"
+    patterns: "{{ path_item | basename }}"
+    file_type: "any"
+  register: files_to_sync
+
+- name: Print found files for pattern {{ path_item }}
+  debug:
+    msg: "{{ files_to_sync['files'] | map(attribute='path') }}"
+
+- name: Sync files in path {{ path_item }}
+  ansible.posix.synchronize:
+    src: "{{ item }}"
+    dest: "{{ path_item | dirname }}"
+  loop: "{{ files_to_sync['files'] | map(attribute='path') }}"
