@@ -45,10 +45,6 @@
       username: "{{ ansible_user_id }}"
       user_dir: "{{ ansible_user_dir }}"
 
-  # Extending the PATH var is required, because dockutil (used in role geerlingguy.mac.dock) resides in /usr/local/bin.
-  environment:
-    PATH: /usr/local/bin:{{ ansible_env.PATH }}
-
   pre_tasks:
     - debug: var=target_user
       tags: ['always']
