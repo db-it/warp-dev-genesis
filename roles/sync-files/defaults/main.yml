@@ -18,6 +18,7 @@ syncfiles_symlink_fixes: []
 #
 # NOTE: Syncing paths that require sudo permissions are not supported!
 # for e.g. /etc/hosts
+# use 'syncfiles_sudo' for those paths!
 syncfiles: []
 # Examples:
 # single file:
@@ -32,3 +33,14 @@ syncfiles: []
 #
 # Glob pattern. All files starting with "foo":
 # - ~/Library/Services/foo*
+
+
+# Define paths that require sudo permissions on remote host.
+# Do not use this for a large amount of files as this is a slow method of transferring files.
+syncfiles_sudo: []
+# Example:
+# single file:
+# - /etc/hosts
+#
+# directory:
+# - /etc/paths.d

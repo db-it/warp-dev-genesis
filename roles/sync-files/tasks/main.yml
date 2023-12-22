@@ -14,3 +14,9 @@
   loop: "{{ syncfiles }}"
   loop_control:
     loop_var: path_item
+
+- name: Include tasks copy-path-sudo
+  ansible.builtin.include_tasks: copy-path-sudo.yml
+  loop: "{{ syncfiles_sudo }}"
+  loop_control:
+    loop_var: path_item
