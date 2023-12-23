@@ -2,67 +2,42 @@
 
 > *A tool for the beginning (Genesis) of a developers environment at warp speed.*
 
-With warp dev genesis, you can quickly and easily set up your work device automatically the way you need it.
+With *warp-dev-genesis*, you can quickly and easily set up your work device automatically the way you need it.
+It is built with Ansible.
 
+<br />
+
+## Project requirements
+
+* `make` is required to bootstrap this project.
+  * **On MacOS**: Open Terminal app and run `make`. This prompts for installing Xcode, that brings `make` with it.
+* `Python3` is required, because it's a dependency of Ansible.
 
 
 <br />
 
 ## Project bootstrap
 
+Clone this repository and `cd` into it.
+
 ```sh
 # creates venv and installs ansible
 make init
 make init ANSIBLE_VERSION=...
-# activate venv with Ansible for shell session
+# activate virtual env with Ansible for shell session
 source venv/bin/activate.fish
 ```
 
-<br />
-
-## Prepare local and remote hosts for provisioning
-
-### Ensure make is installed
-
-Open Terminal app and run `make`. This prompts for installing Xcode.
+The virtual env must be activated in every new shell session.
 
 <br />
 
+## Full warp guide
 
-## Prepare remote host for provisioning
-
-### Enable SSH
-
-You can use this playbook to manage other Macs as well; you just need to make sure you can connect to it with SSH:
-
-  1. (On the Mac you want to connect to:) Go to System Preferences > General > Sharing.
-  2. Enable 'Remote Login'.
-
-You can also enable remote login on the command line:
-
-```sh
-sudo systemsetup -setremotelogin on
-```
-
-### Add SSH public key to authorized_hosts
-
-```sh
-ssh-copy-id -i ~/.ssh/id_rsa user@remote-host
-```
-
-### Edit Ansible inventory
-
-Edit the `inventory` file in this repository and change the line that starts with `127.0.0.1` to:
-
-```
-[ip address or hostname of mac]  ansible_user=[mac ssh username]
-```
-
-If you need to supply an SSH password (if you don't use SSH keys), make sure to pass the `--ask-pass` parameter to the `ansible-playbook` command.
+For my own reference, I have written instructions on how to perform a [full warp 4mac](full-warp4mac.md) (It will probably be slightly different for everyone).
 
 
 <br />
-
 
 ## Resources
 
