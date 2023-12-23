@@ -16,27 +16,27 @@
 #
 # DO A COMPLETE WARP:
 # run macos play on local target: ansible-playbook -i inventory.ini macos.yml --become-password-file=sudo_pass.txt -e "@secrets.yml"
-# run macos play on remote target: ansible-playbook -i inventory.ini macos.yml -e override_host=remote --become-password-file=sudo_pass.txt -e "@secrets.yml"
+# run macos play on remote target: ansible-playbook -i remote.ini macos.yml --become-password-file=sudo_pass.txt -e "@secrets.yml"
 #
 # RUN SINGLE WARP STEPS (remote):
-# backup-and-restore-paths:       ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup --ask-become-pass
-# homebrew:                       ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags homebrew --become-password-file=sudo_pass.txt -e "@secrets.yml"
-# install & configure fish shell: ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags fish --ask-become-pass
-# dotfiles:                       ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags dotfiles
-# secretfiles:                    ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags secretfiles
-# dock:                           ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags dock
-# mas:                            ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags mas
-# vscode:                         ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags vscode
-# fonts:                          ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags fonts
-# macos:                          ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags macos
-# extra-packages:                 ansible-playbook -i inventory.ini macos.yml -e override_host=remote --tags extra-packages
+# backup-and-restore-paths:       ansible-playbook -i remote.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup --ask-become-pass
+# homebrew:                       ansible-playbook -i remote.ini macos.yml --tags homebrew --become-password-file=sudo_pass.txt -e "@secrets.yml"
+# install & configure fish shell: ansible-playbook -i remote.ini macos.yml --tags fish --ask-become-pass
+# dotfiles:                       ansible-playbook -i remote.ini macos.yml --tags dotfiles
+# secretfiles:                    ansible-playbook -i remote.ini macos.yml --tags secretfiles
+# dock:                           ansible-playbook -i remote.ini macos.yml --tags dock
+# mas:                            ansible-playbook -i remote.ini macos.yml --tags mas
+# vscode:                         ansible-playbook -i remote.ini macos.yml --tags vscode
+# fonts:                          ansible-playbook -i remote.ini macos.yml --tags fonts
+# macos:                          ansible-playbook -i remote.ini macos.yml --tags macos
+# extra-packages:                 ansible-playbook -i remote.ini macos.yml --tags extra-packages
 #
 # POST TASKS:
-# set fish as default shell:      ansible-playbook -i inventory.ini macos.yml --tags fish --ask-become-pass -e fish_set_default_shell=true
+# set fish as default shell:      ansible-playbook -i remote.ini macos.yml --tags fish --ask-become-pass -e fish_set_default_shell=true
 #
 ---
 - name: Configure host.
-  hosts: "{{ override_host | default('local') }}"
+  hosts: "{{ override_host | default('macs') }}"
 
   vars_files:
     - default.config.yml

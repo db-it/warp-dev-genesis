@@ -3,8 +3,8 @@
 
 # code: language=ansible
 ---
-- name: Configure host.
-  hosts: "{{ override_host | default('local') }}"
+- name: Configure host
+  hosts: "{{ override_host | default('macs') }}"
 
   vars_files:
     - default.config.yml

@@ -2,6 +2,7 @@
 config.yml
 secrets.yml
 sudo_pass.txt
+remote.ini
 
 .vscode/settings.json
 venv
