@@ -18,7 +18,7 @@ backup_and_restore_paths_items: []
 # - ~/config.ini
 # directory
 # - ~/.ssh
-# glob pattern
-# - ~/Library/Services/d12r*
+# glob pattern: all files starting with "foo"
+# - ~/Library/Services/foo*
 # privileged rights may be necessary, when restoring file outside the user home directory
 # - /etc/hosts
