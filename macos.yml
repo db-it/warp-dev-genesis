@@ -24,7 +24,8 @@
 # install & configure fish shell: ansible-playbook -i remote.ini macos.yml --tags fish --ask-become-pass
 # dotfiles:                       ansible-playbook -i remote.ini macos.yml --tags dotfiles
 # secretfiles:                    ansible-playbook -i remote.ini macos.yml --tags secretfiles
-# dock:                           ansible-playbook -i remote.ini macos.yml --tags dock
+# syncfiles:                      ansible-playbook -i remote.ini macos.yml --tags syncfiles
+# dock:                           ansible-playbook -i remote.ini macos.yml --tags dock -e "@secrets.yml"
 # mas:                            ansible-playbook -i remote.ini macos.yml --tags mas
 # vscode:                         ansible-playbook -i remote.ini macos.yml --tags vscode
 # fonts:                          ansible-playbook -i remote.ini macos.yml --tags fonts
