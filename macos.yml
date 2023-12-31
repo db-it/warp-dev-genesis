@@ -98,8 +98,9 @@
     - role: geerlingguy.mac.mas
       when: mas_installed_apps or mas_installed_app_ids
       tags: ['mas']
-    - role: gantsign.visual-studio-code
-      users: "{{ vscode_user_config }}"
+    # - role: gantsign.visual-studio-code
+    - role: visual-studio-code
+      # users: "{{ vscode_user_config }}"
       when: configure_vscode
       tags: ['vscode']
 
