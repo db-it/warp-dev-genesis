@@ -48,6 +48,12 @@
       user_dir: "{{ ansible_user_dir }}"
 
   pre_tasks:
+    - name: Include playbook configuration
+      ansible.builtin.include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+
     - debug: var=target_user
       tags: ['always']
     - name: Print all playbook vars
@@ -56,12 +62,6 @@
     - name: Print ansible facts
       ansible.builtin.debug: var=ansible_facts
       tags: ['never', 'facts']
-
-    - name: Include playbook configuration
-      ansible.builtin.include_vars: "{{ item }}"
-      with_fileglob:
-        - "{{ playbook_dir }}/config.yml"
-      tags: ['always']
 
     - name: Run pre-provision task files in a block
       tags: ['pre']
