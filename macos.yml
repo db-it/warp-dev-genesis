@@ -66,6 +66,9 @@
     - name: Print ansible facts
       ansible.builtin.debug: var=ansible_facts
       tags: ['never', 'facts']
+    - name: Print ansible.env
+      debug: var=ansible_env
+      tags: ['never', 'env']
 
     - name: Run pre-provision task files in a block
       tags: ['pre']
