@@ -1,5 +1,8 @@
 # code: language=ansible
 ---
+- name: Import tasks install
+  import_tasks: install.yml
+
 - name: Include tasks extension-remove
   ansible.builtin.include_tasks: extension-remove.yml
   loop: "{{ vscode_extensions_removed }}"

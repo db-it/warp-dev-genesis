@@ -4,4 +4,11 @@ vscode_extensions_installed: []
 vscode_extensions_removed: []
 vscode_extensions_force_update: false
 
+# Homebrew installs vscode in '/opt/homebrew/bin/code' on Macs with Apple Silicon CPUs.
+# On Intel CPUs the path might be '/usr/local/bin/code'.
+# Default is 'code' and tries to find the executable in the PATH.
 vscode_executable: code
+
+# Build (either 'stable' or 'insiders') https://code.visualstudio.com/insiders/
+# Ubuntu only (code-insiders isn't in Microsoft's RPM repo)
+visual_studio_code_build: stable

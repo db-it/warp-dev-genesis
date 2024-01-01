@@ -1,0 +1,6 @@
+# code: language=ansible
+---
+- name: Ensure {{ visual_studio_code_package }} is present
+  community.general.homebrew_cask:
+    name: "{{ visual_studio_code_package }}"
+    state: present
