@@ -1,5 +1,7 @@
+# code: language=ansible
 ---
-- name: Install vscode extension {{ item }}.
+- name: Install vscode extension {{ item }}
   ansible.builtin.command:
-    cmd: code --install-extension {{ item }}{% if vscode_extensions_force_update %} --force{% endif %}
-  tags: ['vscode_extensions']
+    cmd: "{{ vscode_executable }} --install-extension {{ item }}{% if vscode_extensions_force_update %} --force{% endif %}"
+  register: install_ext
+  changed_when: install_ext is regex("Extension.*was successfully installed")

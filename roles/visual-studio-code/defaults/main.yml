@@ -1,5 +1,7 @@
+# code: language=ansible
+---
 vscode_extensions_installed: []
 vscode_extensions_removed: []
-
-
 vscode_extensions_force_update: false
+
+vscode_executable: code
