@@ -10,3 +10,7 @@
 - name: Include tasks extension-add
   ansible.builtin.include_tasks: extension-add.yml
   loop: "{{ vscode_extensions_installed }}"
+
+- name: Include tasks configurations
+  ansible.builtin.include_tasks: configurations.yml
+  when: vscode_settings not in ({}, '', None, omit) or vscode_keybindings not in ([], '', None, omit)

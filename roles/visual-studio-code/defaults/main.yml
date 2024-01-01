@@ -3,6 +3,21 @@
 vscode_extensions_installed: []
 vscode_extensions_removed: []
 vscode_extensions_force_update: false
+vscode_settings_overwrite: no
+vscode_settings: {}
+# Example:
+# vscode_settings: {
+#   "redhat.telemetry.enabled": false,
+# }
+vscode_keybindings_overwrite: no
+vscode_keybindings: []
+# Example:
+# vscode_keybindings: [
+#   {
+#     "key": "shift+cmd+d",
+#     "command": "-workbench.view.debug"
+#   }
+# ]
 
 # Homebrew installs vscode in '/opt/homebrew/bin/code' on Macs with Apple Silicon CPUs.
 # On Intel CPUs the path might be '/usr/local/bin/code'.
