@@ -135,7 +135,7 @@ mas_installed_apps: []
 mas_email: ""
 mas_password: ""
 
-macos_script: "~/.macos --no-restart"
+macos_script: "{{ ansible_env.HOME }}/.macos --no-restart"
 
 # Install packages from other package managers.
 # Note: You are responsible for making sure the required package managers are
