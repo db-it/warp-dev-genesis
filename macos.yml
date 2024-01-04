@@ -15,13 +15,13 @@
 #
 #
 # DO A COMPLETE WARP:
-# run macos play on local target: ansible-playbook -i inventory.ini macos.yml --become-password-file=sudo_pass.txt -e "@secrets.yml"
-# run macos play on remote target: ansible-playbook -i remote.ini macos.yml --become-password-file=sudo_pass.txt -e "@secrets.yml"
+# run macos play on local target:   ansible-playbook -i inventory.ini macos.yml --become-password-file=sudo_pass.txt -e "@secrets.yml"
+# run macos play on remote target:  ansible-playbook -i remote.ini macos.yml --become-password-file=sudo_pass.txt -e "@secrets.yml"
 #
 # RUN SINGLE WARP STEPS (remote):
-# backup-and-restore-paths:       ansible-playbook -i remote.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup --ask-become-pass
-# homebrew:                       ansible-playbook -i remote.ini macos.yml --tags homebrew --become-password-file=sudo_pass.txt -e "@secrets.yml"
-# install & configure fish shell: ansible-playbook -i remote.ini macos.yml --tags fish --ask-become-pass
+# backup-and-restore-paths:       ansible-playbook -i remote.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup
+# homebrew:                       ansible-playbook -i remote.ini macos.yml --tags homebrew -e "@secrets.yml"
+# install & configure fish shell: ansible-playbook -i remote.ini macos.yml --tags fish
 # dotfiles:                       ansible-playbook -i remote.ini macos.yml --tags dotfiles
 # secretfiles:                    ansible-playbook -i remote.ini macos.yml --tags secretfiles
 # syncfiles:                      ansible-playbook -i remote.ini macos.yml --tags syncfiles
@@ -34,7 +34,7 @@
 # extra-packages:                 ansible-playbook -i remote.ini macos.yml --tags extra-packages
 #
 # POST TASKS:
-# set fish as default shell:      ansible-playbook -i remote.ini macos.yml --tags fish --ask-become-pass -e fish_set_default_shell=true
+# set fish as default shell:      ansible-playbook -i remote.ini macos.yml --tags fish -e fish_set_default_shell=true
 #
 ---
 - name: Configure host
