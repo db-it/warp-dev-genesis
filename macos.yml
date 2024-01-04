@@ -36,7 +36,7 @@
 # set fish as default shell:      ansible-playbook -i remote.ini macos.yml --tags fish --ask-become-pass -e fish_set_default_shell=true
 #
 ---
-- name: Configure host.
+- name: Configure host
   hosts: "{{ override_host | default('macs') }}"
 
   vars_files:
@@ -46,6 +46,10 @@
     target_user:
       username: "{{ ansible_user_id }}"
       user_dir: "{{ ansible_user_dir }}"
+
+  environment:
+    # extending PATH is required for remote targets by some roles: vscode
+    PATH: /usr/local/bin:/opt/homebrew/bin:{{ ansible_env.PATH }}
 
   pre_tasks:
     - name: Include playbook configuration
@@ -62,6 +66,9 @@
     - name: Print ansible facts
       ansible.builtin.debug: var=ansible_facts
       tags: ['never', 'facts']
+    - name: Print ansible.env
+      debug: var=ansible_env
+      tags: ['never', 'env']
 
     - name: Run pre-provision task files in a block
       tags: ['pre']
@@ -98,8 +105,7 @@
     - role: geerlingguy.mac.mas
       when: mas_installed_apps or mas_installed_app_ids
       tags: ['mas']
-    - role: gantsign.visual-studio-code
-      users: "{{ vscode_user_config }}"
+    - role: visual-studio-code
       when: configure_vscode
       tags: ['vscode']
 

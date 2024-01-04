@@ -1,0 +1,29 @@
+# code: language=ansible
+---
+- name: Ensure config directory is present
+  ansible.builtin.file:
+    path: "{{ visual_studio_code_config_path }}"
+    state: directory
+    mode: "0700"
+
+- name: Ensure user settings directory is present
+  ansible.builtin.file:
+    path: '{{ visual_studio_code_config_path }}/User'
+    state: directory
+    mode: "0755"
+
+- name: Ensure vscode settings are in place
+  ansible.builtin.template:
+    src: settings.json.j2
+    dest: "{{ visual_studio_code_config_path }}/User/settings.json"
+    force: "{{ vscode_settings_overwrite | default(False) | bool }}"
+    mode: "0644"
+  when: vscode_settings not in ({}, '', None, omit)
+
+- name: Ensure vscode keybindings are in place
+  ansible.builtin.template:
+    src: keybindings.json.j2
+    dest: "{{ visual_studio_code_config_path }}/User/keybindings.json"
+    force: "{{ vscode_keybindings_overwrite | default(False) | bool }}"
+    mode: "0644"
+  when: vscode_keybindings not in ([], '', None, omit)

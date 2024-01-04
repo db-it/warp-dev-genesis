@@ -1,0 +1,14 @@
+# code: language=ansible
+---
+- name: Get vscode extensions
+  ansible.builtin.command:
+    cmd: "{{ vscode_executable }} --list-extensions"
+  register: extensions
+  changed_when: false
+
+- name: Uninstall vscode extension {{ item }}
+  ansible.builtin.command:
+    cmd: "{{ vscode_executable }} --uninstall-extension {{ item }}"
+  register: uninstall_ext
+  changed_when: uninstall_ext is regex("Extension.*was successfully uninstalled")
+  when: item in extensions.stdout_lines
