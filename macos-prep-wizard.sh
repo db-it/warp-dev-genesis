@@ -44,6 +44,8 @@ if [[ -n "${ip}" ]]; then
         echo -e "${_inventory_file_content}" >${_infenvory_file}
         open -R ${_infenvory_file}
     fi
+    echo ""
+    echo ""
 else
     echo "Can't create Ansible inventory file, because there is currently no network connection."
     echo "Establish a connection and start this wizard again or create the inventory file manually. Check the docs for more details."
@@ -52,7 +54,7 @@ fi
 
 
 # Install Xcode developer tools
-echo "Install requirement Xcode developer tools"
+echo "Install requirement Xcode developer tools. Click 'Install' on the MacOS xcode installation popup."
 xcode-select --install
 
 echo ""
