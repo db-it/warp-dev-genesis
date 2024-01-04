@@ -108,6 +108,9 @@
     - role: visual-studio-code
       when: configure_vscode
       tags: ['vscode']
+    - role: fast-node-manager
+      when: configure_fnm
+      tags: ['fnm']
 
   tasks:
     - name: Import tasks rosetta2

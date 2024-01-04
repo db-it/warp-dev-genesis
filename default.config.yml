@@ -138,6 +138,20 @@ mas_password: ""
 
 macos_script: "{{ ansible_env.HOME }}/.macos --no-restart"
 
+# Install Node.js versions via fnm
+fnm_node_versions_present:
+  - v20
+  - v18
+
+# Install or uninstall (depending on state) global npm packages
+# for every node version in fnm_node_versions_present.
+fnm_global_npm_packages:
+  - name: npmrc
+    state: present
+  - name: ntl
+    state: present
+
+
 # Install packages from other package managers.
 # Note: You are responsible for making sure the required package managers are
 # installed, eg. through homebrew.
