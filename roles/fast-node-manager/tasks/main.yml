@@ -1,0 +1,22 @@
+# code: language=ansible
+---
+- name: Ensure fnm is present
+  ansible.builtin.package:
+    name: fnm
+
+- name: Include tasks uninstall-node
+  ansible.builtin.include_tasks: uninstall-node.yml
+  loop: "{{ fnm_node_versions_absent }}"
+  loop_control:
+    loop_var: node_version
+
+- name: Include tasks install-node
+  ansible.builtin.include_tasks: install-node.yml
+  loop: "{{ fnm_node_versions_present }}"
+  loop_control:
+    loop_var: node_version
+
+- name: Include tasks default-node-version
+  ansible.builtin.include_tasks: default-node-version.yml
+  when: fnm_default_node_version not in ('', None, omit)
+

@@ -1,0 +1,32 @@
+# code: language=ansible
+---
+
+fnm_node_versions_present: []
+# Example:
+# - v20
+# - Iron
+# - v20.10.0
+
+fnm_node_versions_absent: []
+# Example:
+# - v12
+# - Erbium
+# - v12.22.12
+
+# fnm default is the lastest node version installed
+fnm_default_node_version: ""
+# Example: v20
+
+# Global npm packages that are (un)installed with every node version that is installed.
+fnm_global_npm_packages: []
+# Example:
+# - name: webpack
+#   state: present # present/absent, default: present
+#   version: "^2.6" # default: N/A
+# - name: npmrc
+#   state: absent
+
+# Homebrew installs fnm in '/opt/homebrew/bin/fnm' on Macs with Apple Silicon CPUs.
+# On Intel CPUs the path might be '/usr/local/bin/fnm'.
+# Default is 'fnm' and tries to find the executable in the PATH.
+fnm_executable: fnm

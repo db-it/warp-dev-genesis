@@ -1,0 +1,11 @@
+# code: language=ansible
+---
+- name: Get installed node versions
+  ansible.builtin.command:
+    cmd: "{{ fnm_executable }} list"
+  register: _fnm_installed_node_versions
+
+- name: Set default Node version {{ fnm_default_node_version }}
+  ansible.builtin.command:
+    cmd: "{{ fnm_executable }} default {{ fnm_default_node_version }}"
+  when: fnm_default_node_version in _fnm_installed_node_versions.stdout

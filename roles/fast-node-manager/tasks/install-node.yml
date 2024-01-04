@@ -1,0 +1,19 @@
+# code: language=ansible
+---
+- name: Ensure node version is present {{ node_version }}
+  ansible.builtin.command:
+    cmd: "{{ fnm_executable }} install {{ node_version }}"
+  register: _fnm_node_install
+  changed_when: _fnm_node_install.stderr is not regex("Version already installed")
+
+
+- name: Install npm packages for Node version {{ node_version }}
+  ansible.builtin.command:
+    cmd: >
+      {{ fnm_executable }} exec --using={{ node_version }} npm --global
+      {% if npm_package.state == 'absent' %}un{% endif %}install --no-fund
+      {{ npm_package.name | default(npm_package) }}{% if npm_package.version is defined %}@{{ npm_package.version }}{% endif %}
+  loop: "{{ fnm_global_npm_packages }}"
+  loop_control:
+    loop_var: npm_package
+  when: fnm_global_npm_packages not in ([], '', None, omit)
