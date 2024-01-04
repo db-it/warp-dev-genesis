@@ -10,6 +10,7 @@ configure_fish: yes
 configure_vscode: yes
 configure_fonts: yes
 configure_macos: yes
+install_rosetta2: no
 
 # Set to 'true' to configure the Dock via dockutil.
 configure_dock: false
