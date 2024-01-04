@@ -28,6 +28,7 @@
 # dock:                           ansible-playbook -i remote.ini macos.yml --tags dock -e "@secrets.yml"
 # mas:                            ansible-playbook -i remote.ini macos.yml --tags mas
 # vscode:                         ansible-playbook -i remote.ini macos.yml --tags vscode
+# fnm:                            ansible-playbook -i remote.ini macos.yml --tags fnm
 # fonts:                          ansible-playbook -i remote.ini macos.yml --tags fonts
 # macos:                          ansible-playbook -i remote.ini macos.yml --tags macos
 # extra-packages:                 ansible-playbook -i remote.ini macos.yml --tags extra-packages
