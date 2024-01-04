@@ -82,7 +82,6 @@
 
   roles:
     - role: backup-and-restore-paths
-      backup_and_restore_paths_do_restore: yes
       when: backup_and_restore_paths_do_restore
       tags: ['backup-and-restore-paths']
     - role: elliotweiser.osx-command-line-tools
