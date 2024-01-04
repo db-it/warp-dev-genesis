@@ -50,6 +50,11 @@ else
     echo ""
 fi
 
+
+# Install Xcode developer tools
+echo "Install requirement Xcode developer tools"
+xcode-select --install
+
 echo ""
 echo ""
 
