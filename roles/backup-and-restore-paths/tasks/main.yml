@@ -2,7 +2,7 @@
 ---
 - name: Ensure backup path is set
   ansible.builtin.fail:
-    msg: Variable backup_paths_backup_path is not set.
+    msg: Variable backup_and_restore_paths_backup_path is not set.
   when: backup_and_restore_paths_backup_path | length == 0
 
 - name: Include backup path files
