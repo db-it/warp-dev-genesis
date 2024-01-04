@@ -1,0 +1,13 @@
+# code: language=ansible
+---
+- name: Get installed node versions
+  ansible.builtin.command:
+    cmd: "{{ fnm_executable }} list"
+  register: _fnm_installed_node_versions
+
+- name: Ensure node version is not installed {{ node_version }}
+  ansible.builtin.command:
+    cmd: "{{ fnm_executable }} uninstall {{ node_version }}"
+  register: _fnm_node_uninstall
+  when: node_version in _fnm_installed_node_versions.stdout
+  changed_when: _fnm_node_uninstall.stdout is regex("was removed successfully")
