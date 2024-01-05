@@ -1,6 +1,6 @@
 # code: language=ansible
 ---
-secret_files_path: ~/.secrets
+secret_files_path: "{{ ansible_env.HOME }}/.secrets"
 
 secret_files_links: []
 # Example:
