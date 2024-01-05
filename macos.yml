@@ -100,12 +100,12 @@
     - role: geerlingguy.dotfiles
       when: configure_dotfiles
       tags: ['dotfiles']
-    - role: secret-files
-      when: configure_secretfiles
-      tags: ['secretfiles']
     - role: sync-files
       when: do_sync_files
       tags: ['syncfiles']
+    - role: secret-files
+      when: configure_secretfiles
+      tags: ['secretfiles']
     - role: dock
       when: configure_dock
       tags: ['dock']
