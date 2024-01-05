@@ -28,7 +28,7 @@ fi
 
 if [[ -n "${ip}" ]]; then
     echo "Inventory file: remote.ini"
-    _inventory_file_content="[macs]\n${ip} ansible_user=$USER become-password-file=sudo_pass.txt"
+    _inventory_file_content="[macs]\n${ip} ansible_user=$USER become_password_file=sudo_pass.txt"
     echo ""
     echo -e "${_inventory_file_content}"
     echo ""
