@@ -9,5 +9,5 @@
 
 - name: Installation logs of {{ plugin }}
   ansible.builtin.debug:
-    var: "{{ fish_plugin_installation.stdout_lines }}"
+    msg: "{{ fish_plugin_installation.stdout_lines }}"
   when: ansible_verbosity > 1
