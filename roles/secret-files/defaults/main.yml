@@ -6,7 +6,8 @@ secret_files_links: []
 # Example:
 # - src: .netrc
 #   dest: ~/.netrc
-#   force: true
-#   permissions: 0644
+#   force: true           # default: N/A
+#   permissions: '0644'   # default: {{ secret_files_link_permissions }}
+#   sudo: true            # default: N/A
 
 secret_files_link_permissions: '0600'
