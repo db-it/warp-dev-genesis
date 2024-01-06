@@ -1,0 +1,11 @@
+# code: language=ansible
+---
+
+# TODO remove last number from version string, because settings directory uses no patch version
+- name: Get IntelliJ IDEA version
+  ansible.builtin.command:
+    cmd: /usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" {{ intellij_app_path | quote }}
+  register: _intellij_app_version
+
+- debug:
+    var=intellij_settings_path

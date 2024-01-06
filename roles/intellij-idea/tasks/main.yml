@@ -22,3 +22,6 @@
   ansible.builtin.command:
     cmd: "{{ intellij_cli_launcher_path }} installPlugins {{ intellij_plugins_installed | map(attribute='id') | map('quote') | list | join(' ') }}"
   when: intellij_plugins_installed | length > 0
+
+- name: Include tasks settings
+  ansible.builtin.include_tasks: settings.yml

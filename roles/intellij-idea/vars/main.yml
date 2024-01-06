@@ -1,0 +1,6 @@
+# code: language=ansible
+---
+
+intellij_app_path: "/Applications/{{ intellij_app_filename }}/Contents/Info.plist"
+
+intellij_settings_path: "{{ ansible_env.HOME }}/Library/Application Support/JetBrains/IntelliJIdea{{ _intellij_app_version.stdout }}"
