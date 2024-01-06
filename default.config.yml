@@ -7,6 +7,7 @@ do_sync_files: no
 configure_dotfiles: yes
 configure_secretfiles: no
 configure_fish: yes
+configure_intellij: yes
 configure_vscode: yes
 configure_fonts: yes
 configure_macos: yes
@@ -120,6 +121,18 @@ homebrew_cask_apps:
   - temurin17
   - visual-studio-code
   - wireshark
+
+
+intellij_plugins_installed:
+  - name: Ini
+    id: com.jetbrains.plugins.ini4idea
+  - name: Property Sorter
+    id: Property Sorter
+  - name: SonarLint
+    id: org.sonarlint.idea
+  - name: String Manipulation
+    id: String Manipulation
+
 
 vscode_user_config:
   - username: "{{ target_user }}"

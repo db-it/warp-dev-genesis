@@ -1,0 +1,24 @@
+# code: language=ansible
+---
+
+- name: Get IntelliJ IDEA process
+  ansible.builtin.shell: pgrep idea || true
+  register: _pid_idea
+
+- name: Ensure IntelliJ IDEA is quit, if it's running
+  ansible.builtin.command:
+    # cmd: "osascript -e 'tell application \"IntelliJ IDEA\" to quit'"
+    cmd: killall idea
+  when: _pid_idea.stdout != ""
+
+- name: Ensure IntelliJ's command line launcher is in place
+  ansible.builtin.template:
+    src: idea.j2
+    dest: "{{ intellij_cli_launcher_path }}"
+    mode: '0755'
+  become: true
+
+- name: Ensure configured IntelliJ IDEA plugins are installed
+  ansible.builtin.command:
+    cmd: "{{ intellij_cli_launcher_path }} installPlugins {{ intellij_plugins_installed | map(attribute='id') | map('quote') | list | join(' ') }}"
+  when: intellij_plugins_installed | length > 0
