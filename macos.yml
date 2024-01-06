@@ -19,19 +19,20 @@
 # run macos play on remote target:  ansible-playbook -i remote.ini macos.yml --become-password-file=sudo_pass.txt -e "@secrets.yml"
 #
 # RUN SINGLE WARP STEPS (remote):
-# backup-and-restore-paths:       ansible-playbook -i remote.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup
-# homebrew:                       ansible-playbook -i remote.ini macos.yml --tags homebrew -e "@secrets.yml"
-# install & configure fish shell: ansible-playbook -i remote.ini macos.yml --tags fish
-# dotfiles:                       ansible-playbook -i remote.ini macos.yml --tags dotfiles
-# secretfiles:                    ansible-playbook -i remote.ini macos.yml --tags secretfiles
-# syncfiles:                      ansible-playbook -i remote.ini macos.yml --tags syncfiles
-# dock:                           ansible-playbook -i remote.ini macos.yml --tags dock -e "@secrets.yml"
-# mas:                            ansible-playbook -i remote.ini macos.yml --tags mas
-# vscode:                         ansible-playbook -i remote.ini macos.yml --tags vscode
-# fnm:                            ansible-playbook -i remote.ini macos.yml --tags fnm
-# fonts:                          ansible-playbook -i remote.ini macos.yml --tags fonts
-# macos:                          ansible-playbook -i remote.ini macos.yml --tags macos
-# extra-packages:                 ansible-playbook -i remote.ini macos.yml --tags extra-packages
+# backup-and-restore-paths        ansible-playbook -i remote.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup
+# homebrew                        ansible-playbook -i remote.ini macos.yml --tags homebrew -e "@secrets.yml"
+# install & configure fish shell  ansible-playbook -i remote.ini macos.yml --tags fish
+# dotfiles                        ansible-playbook -i remote.ini macos.yml --tags dotfiles
+# secretfiles                     ansible-playbook -i remote.ini macos.yml --tags secretfiles
+# syncfiles                       ansible-playbook -i remote.ini macos.yml --tags syncfiles
+# dock                            ansible-playbook -i remote.ini macos.yml --tags dock -e "@secrets.yml"
+# mas                             ansible-playbook -i remote.ini macos.yml --tags mas
+# vscode                          ansible-playbook -i remote.ini macos.yml --tags vscode
+# intellij                        ansible-playbook -i remote.ini macos.yml --tags intellij
+# fnm                             ansible-playbook -i remote.ini macos.yml --tags fnm
+# fonts                           ansible-playbook -i remote.ini macos.yml --tags fonts
+# macos                           ansible-playbook -i remote.ini macos.yml --tags macos
+# extra-packages                  ansible-playbook -i remote.ini macos.yml --tags extra-packages
 #
 # POST TASKS:
 # set fish as default shell:      ansible-playbook -i remote.ini macos.yml --tags fish -e fish_set_default_shell=true
@@ -112,6 +113,9 @@
     - role: geerlingguy.mac.mas
       when: mas_installed_apps or mas_installed_app_ids
       tags: ['mas']
+    - role: intellij-idea
+      when: configure_intellij
+      tags: ['intellij']
     - role: visual-studio-code
       when: configure_vscode
       tags: ['vscode']
