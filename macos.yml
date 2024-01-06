@@ -89,9 +89,9 @@
       tags: ['rosetta2']
 
   roles:
-    - role: backup-and-restore-paths
-      when: backup_and_restore_paths_do_restore
-      tags: ['backup-and-restore-paths']
+    # - role: backup-and-restore-paths
+    #   when: backup_and_restore_paths_do_restore
+    #   tags: ['backup-and-restore-paths']
     - role: elliotweiser.osx-command-line-tools
     - role: geerlingguy.mac.homebrew
       tags: ['homebrew']
