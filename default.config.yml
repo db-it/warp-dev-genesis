@@ -134,15 +134,14 @@ intellij_plugins_installed:
     id: String Manipulation
 
 
-vscode_user_config:
-  - username: "{{ target_user }}"
-    visual_studio_code_extensions: []
-    # Overwrite the settings file if it exists. Options: boolean "yes" or "no" (defaults to "no").
-    visual_studio_code_settings_overwrite: no
-    visual_studio_code_settings: {} # JSON object
-    # Overwrite the keybindings file if it exists. Options: boolean "yes" or "no" (defaults to "no").
-    visual_studio_code_keybindings_overwrite: no
-    visual_studio_code_keybindings: [] # JSON array
+vscode_extensions_force_update: false
+vscode_extensions_installed: []
+
+vscode_settings_overwrite: no
+vscode_settings: {}
+
+vscode_keybindings_overwrite: no
+vscode_keybindings: []
 
 # See `geerlingguy.mas` role documentation for usage instructions.
 mas_installed_apps: []
