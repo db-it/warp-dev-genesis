@@ -1,0 +1,9 @@
+# code: language=ansible
+---
+
+# Filename of IntelliJ App
+# used for the command-line launcher script
+intellij_app_filename: "IntelliJ IDEA.app"
+
+# path of command line launcher (should be in PATH)
+intellij_cli_launcher_path: /usr/local/bin/idea
