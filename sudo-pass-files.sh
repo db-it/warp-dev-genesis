@@ -32,6 +32,3 @@ elif [ "$1" == "create" ]; then
 elif [ "$1" == "remove" ]; then
     remove_password_files
 fi
-
-
-
