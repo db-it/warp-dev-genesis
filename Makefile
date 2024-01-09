@@ -22,7 +22,7 @@ venv:
 	$(PIP_BIN) install --upgrade pip setuptools wheel
 
 .PHONY: install-ansible
-install-ansible: install-packages install-galaxy-roles
+install-ansible: install-packages install-galaxy-roles install-galaxy-collections
 
 # subtarget
 .PHONY: install
