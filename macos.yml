@@ -21,7 +21,7 @@
 # RUN SINGLE WARP STEPS (remote):
 # backup-and-restore-paths        ansible-playbook -i remote.ini macos.yml --tags backup-and-restore-paths -e backup_and_restore_paths_backup_path=/Volumes/SanDisk/macos_backup
 # homebrew                        ansible-playbook -i remote.ini macos.yml --tags homebrew -e "@secrets.yml"
-# install & configure fish shell  ansible-playbook -i remote.ini macos.yml --tags fish
+# fish shell                      ansible-playbook -i remote.ini macos.yml --tags fish
 # dotfiles                        ansible-playbook -i remote.ini macos.yml --tags dotfiles
 # secretfiles                     ansible-playbook -i remote.ini macos.yml --tags secretfiles
 # syncfiles                       ansible-playbook -i remote.ini macos.yml --tags syncfiles
