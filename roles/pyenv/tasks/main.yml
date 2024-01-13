@@ -7,18 +7,9 @@
 
 - name: Configure shell integration
   ansible.builtin.template:
-    src: "{{ shell_integration_file }}.j2"
-    dest: "{{ shell_config_dir }}/{{ shell_integration_file }}"
-    # owner: "{{ target_user.username }}"
-    # mode: '0644'
+    src: "{{ pyenv_shell_environment_file }}.j2"
+    dest: "{{ pyenv_shell_config_dir }}/{{ pyenv_shell_environment_file }}"
 
-- name: Detect shell
-  ansible.builtin.shell: echo $SHELL
-
-- name: "Install Python interpreters {{ pyenv_python_versions }}"
-  ansible.builtin.shell: "pyenv install {{ item }}"
-  environment:
-    PYTHON_CONFIGURE_OPTS: "{{ pyenv_python_configure_opts }}"
-  args:
-    creates: "{{ pyenv_path }}/versions/{{ item }}/bin/python"
-  with_items: "{{ pyenv_python_versions }}"
+- name: Install Python version
+  ansible.builtin.command:
+    cmd: pyenv install --skip-existing {{ item }}

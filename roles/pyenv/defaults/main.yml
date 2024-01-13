@@ -3,10 +3,14 @@
 pyenv_state: present
 
 pyenv_python_versions:
-  - 3.11.4
+#  - 3.11
+#  - 3.10.13
 
 
-shell_integration_file: pyenv.fish
+# Name of the config file, that't loaded by the shell and
+# therefore loads pyenv.
+pyenv_shell_environment_file: pyenv.fish
 
 # TODO: detect this automatically on host
-shell_config_dir: "{{ ansible_user_dir }}/.config/fish/conf.d"
+# Path where the pyenv_shell_environment_file will be created.
+pyenv_shell_config_dir: "{{ ansible_user_dir }}/.config/fish/conf.d"
