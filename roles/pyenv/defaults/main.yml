@@ -2,7 +2,12 @@
 ---
 pyenv_state: present
 
-pyenv_python_versions:
+# Install latest Python version
+# This latest version is additionally installed to the versions defined in pyenv_python_versions_installed
+pyenv_install_latest_python: true
+
+# Install Python versions for pyenv
+pyenv_python_versions_installed: []
 #  - 3.11
 #  - 3.10.13
 
