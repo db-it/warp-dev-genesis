@@ -12,11 +12,11 @@
 
 - name: Get latest known Python 3 version
   ansible.builtin.command:
-    cmd: pyenv latest --known 3
+    cmd: "{{ pyenv_bin }} latest --known 3"
   register: _pyenv_latest_version
   when: pyenv_install_latest_python
 
 - name: Install Python version
   ansible.builtin.command:
-    cmd: pyenv install --skip-existing {{ item }}
+    cmd: "{{ pyenv_bin }} install --skip-existing {{ item }}"
   loop: "{{ pyenv_python_versions_installed + [ _pyenv_latest_version.stdout | default(omit) ]}}"
