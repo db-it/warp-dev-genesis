@@ -1,0 +1,22 @@
+# code: language=ansible
+---
+- name: Ensure pyenv is present
+  ansible.builtin.package:
+    name: pyenv
+    state: "{{ pyenv_state }}"
+
+- name: Configure shell integration
+  ansible.builtin.template:
+    src: "{{ pyenv_shell_environment_file }}.j2"
+    dest: "{{ pyenv_shell_config_dir }}/{{ pyenv_shell_environment_file }}"
+
+- name: Get latest known Python 3 version
+  ansible.builtin.command:
+    cmd: "{{ pyenv_bin }} latest --known 3"
+  register: _pyenv_latest_version
+  when: pyenv_install_latest_python
+
+- name: Install Python version
+  ansible.builtin.command:
+    cmd: "{{ pyenv_bin }} install --skip-existing {{ item }}"
+  loop: "{{ pyenv_python_versions_installed + [ _pyenv_latest_version.stdout | default(omit) ]}}"

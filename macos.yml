@@ -30,6 +30,7 @@
 # vscode                          ansible-playbook -i remote.ini macos.yml --tags vscode
 # intellij                        ansible-playbook -i remote.ini macos.yml --tags intellij
 # fnm                             ansible-playbook -i remote.ini macos.yml --tags fnm
+# pyenv                           ansible-playbook -i remote.ini macos.yml --tags pyenv
 # fonts                           ansible-playbook -i remote.ini macos.yml --tags fonts
 # macos                           ansible-playbook -i remote.ini macos.yml --tags macos
 # extra-packages                  ansible-playbook -i remote.ini macos.yml --tags extra-packages
@@ -122,6 +123,9 @@
     - role: fast-node-manager
       when: configure_fnm
       tags: ['fnm']
+    - role: pyenv
+      when: configure_pyenv
+      tags: ['pyenv']
 
   tasks:
     - name: Import tasks sudoers

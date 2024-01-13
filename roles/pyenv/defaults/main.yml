@@ -1,0 +1,26 @@
+# code: language=ansible
+---
+pyenv_state: present
+
+# Install latest Python version
+# This latest version is additionally installed to the versions defined in pyenv_python_versions_installed
+pyenv_install_latest_python: true
+
+# Install Python versions for pyenv
+pyenv_python_versions_installed: []
+#  - 3.11
+#  - 3.10.13
+
+
+# Name of the config file, that't loaded by the shell and
+# therefore loads pyenv.
+pyenv_shell_environment_file: pyenv.fish
+
+# TODO: detect this automatically on host
+# Path where the pyenv_shell_environment_file will be created.
+pyenv_shell_config_dir: "{{ ansible_user_dir }}/.config/fish/conf.d"
+
+
+# Path to the pyenv bin file. The default is what is found in the PATH.
+# But an absolute path can be set, if pyenv is not found in the PATH.
+pyenv_bin: pyenv
