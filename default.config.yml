@@ -11,6 +11,7 @@ configure_intellij: yes
 configure_vscode: yes
 configure_fonts: yes
 configure_macos: yes
+configure_pyenv: yes
 install_rosetta2: no
 
 # Set to 'true' to configure the Dock via dockutil.
@@ -162,6 +163,12 @@ fnm_global_npm_packages:
     state: present
   - name: ntl
     state: present
+
+
+# Install Python versions for pyenv
+pyenv_python_versions: []
+#  - 3.11
+#  - 3.10.13
 
 
 # Install packages from other package managers.
