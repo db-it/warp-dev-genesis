@@ -1,0 +1,5 @@
+# code: language=ansible
+---
+
+wdg_host_dir: "{{ ansible_user_dir }}/.warp-dev-genisis"
+wdg_backup_dir: "{{ wdg_host_dir }}/backups"

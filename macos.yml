@@ -44,6 +44,7 @@
 
   vars_files:
     - default.config.yml
+    - vars/global_vars.yml
   vars:
     do_sync_files: yes
     target_user:

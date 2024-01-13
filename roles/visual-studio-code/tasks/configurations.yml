@@ -12,6 +12,18 @@
     state: directory
     mode: "0755"
 
+- name: Ensure backup directory is present
+  ansible.builtin.file:
+    path: "{{ wdg_backup_dir }}/vscode/User"
+    state: directory
+  when: vscode_settings_overwrite or vscode_keybindings_overwrite
+
+- name: Backup settings.json
+  ansible.builtin.copy:
+    src: "{{ visual_studio_code_config_path }}/User/settings.json"
+    dest: "{{ wdg_backup_dir }}/vscode/User/{{ ansible_date_time.iso8601_basic_short }}_settings.json"
+  when: vscode_settings_overwrite
+
 - name: Ensure vscode settings are in place
   ansible.builtin.template:
     src: settings.json.j2
@@ -19,6 +31,12 @@
     force: "{{ vscode_settings_overwrite | default(False) | bool }}"
     mode: "0644"
   when: vscode_settings not in ({}, '', None, omit)
+
+- name: Backup keybindings.json
+  ansible.builtin.copy:
+    src: "{{ visual_studio_code_config_path }}/User/keybindings.json"
+    dest: "{{ wdg_backup_dir }}/vscode/User/{{ ansible_date_time.iso8601_basic_short }}_keybindings.json"
+  when: vscode_keybindings_overwrite
 
 - name: Ensure vscode keybindings are in place
   ansible.builtin.template:
