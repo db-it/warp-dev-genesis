@@ -7,5 +7,5 @@ set -gx HOMEBREW_NO_ANALYTICS 1
 # Tell homebrew to not autoupdate every single time I run it (just once a week).
 set -gx HOMEBREW_AUTO_UPDATE_SECS 604800
 
-abbr --add brewcout --position command brew outdated --cask --greedy
-abbr --add brewcupg --position command brew upgrade --cask --greedy
+abbr --add brewoc --position command brew outdated --cask --greedy
+abbr --add brewuc --position command brew upgrade --cask --greedy --no-quarantine
