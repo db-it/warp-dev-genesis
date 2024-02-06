@@ -151,6 +151,7 @@ mas_password: ""
 
 macos_script: "{{ ansible_env.HOME }}/.macos --no-restart"
 macos_script_dir: "{{ ansible_env.HOME }}/.macos.d"
+# macos_extra_scripts: []
 
 # Install Node.js versions via fnm
 fnm_node_versions_present:

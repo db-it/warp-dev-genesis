@@ -15,9 +15,19 @@
     depth: 1
     follow: true
   register: _macos_script_files
-  when: _macos_script_dir.stat.exists
+  when:
+    - _macos_script_dir.stat.exists
+    - not macos_extra_scripts is defined
 
-- name: Include tasks macos-run-script
+- name: Include tasks macos-run-script (found files in {{ macos_script_dir }})
   ansible.builtin.include_tasks: macos-run-script.yml
   loop: "{{ _macos_script_files.files | map(attribute='path') }}"
-  when: _macos_script_dir.stat.exists
+  when:
+    - _macos_script_dir.stat.exists
+    - not macos_extra_scripts is defined
+
+- name: Include tasks macos-run-script (user defined macos_extra_scripts)
+  ansible.builtin.include_tasks: macos-run-script.yml
+  loop: "{{ macos_extra_scripts | default([]) }}"
+  when:
+    - macos_extra_scripts is defined
