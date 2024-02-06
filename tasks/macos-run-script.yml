@@ -1,0 +1,12 @@
+# code: language=ansible
+---
+- name: Run .macos script
+  ansible.builtin.command: "{{ item }}"
+  register: _macos_script
+  changed_when: false
+
+- name: Print outputs of {{ item }}
+  ansible.builtin.debug:
+    var: _macos_script
+    # - "{{ _macos_script.stderr.split('\n') }}"
+    # - "{{ _macos_script.stdout.split('\n') }}"

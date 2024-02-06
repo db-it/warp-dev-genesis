@@ -1,12 +1,23 @@
 # code: language=ansible
 ---
-- name: Run .macos dotfiles
-  command: "{{ macos_script }}"
-  register: _macos_script
-  changed_when: false
+- name: Include tasks macos-run-script
+  ansible.builtin.include_tasks: macos-run-script.yml
+  loop: ["{{ macos_script }}"]
 
-- name: Print outputs of {{ macos_script }}
-  debug:
-    var: _macos_script
-    # - "{{ _macos_script.stderr.split('\n') }}"
-    # - "{{ _macos_script.stdout.split('\n') }}"
+- name: Get status of {{ macos_script_dir }}
+  ansible.builtin.stat:
+    path: "{{ macos_script_dir }}"
+  register: _macos_script_dir
+
+- name: Find files in {{ macos_script_dir }}
+  ansible.builtin.find:
+    paths: "{{ macos_script_dir }}"
+    depth: 1
+    follow: true
+  register: _macos_script_files
+  when: _macos_script_dir.stat.exists
+
+- name: Include tasks macos-run-script
+  ansible.builtin.include_tasks: macos-run-script.yml
+  loop: "{{ _macos_script_files.files | map(attribute='path') }}"
+  when: _macos_script_dir.stat.exists

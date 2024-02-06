@@ -111,7 +111,7 @@ homebrew_cask_apps:
 
   ### employer related ##
   - viscosity
-  
+
   ### dev ##
   # - jetbrains-toolbox
   - intellij-idea
@@ -150,6 +150,7 @@ mas_email: ""
 mas_password: ""
 
 macos_script: "{{ ansible_env.HOME }}/.macos --no-restart"
+macos_script_dir: "{{ ansible_env.HOME }}/.macos.d"
 
 # Install Node.js versions via fnm
 fnm_node_versions_present:
