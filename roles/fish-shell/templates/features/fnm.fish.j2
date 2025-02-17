@@ -1,1 +1,2 @@
-fnm env --use-on-cd | source
+# Workaround "status is-interactive": status is-interactive && (related issue: https://github.com/Schniz/fnm/issues/1039)
+status is-interactive && fnm env --use-on-cd | source
