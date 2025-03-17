@@ -2,7 +2,3 @@
 # set -gx PATH "$PYENV_ROOT/bin" $PATH
 
 pyenv init - | source
-
-# include global pyenv packages in PYTHONPATH to make them available to all pyenv installed Python versions
-set -gx PYENV_GLOBAL_PACKAGES $HOME/.pyenv/global-packages
-set -gx PYTHONPATH $PYENV_GLOBAL_PACKAGES $PYTHONPATH
